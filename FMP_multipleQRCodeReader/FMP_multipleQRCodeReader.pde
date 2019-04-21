@@ -31,9 +31,13 @@
 import com.cage.zxing4p3.*;
 ZXING4P zxing4p;
 
-// PROCESSING VIDEO LIBRARY
-import processing.video.*;
-Capture video;
+//// PROCESSING VIDEO LIBRARY
+//import processing.video.*;
+//Capture video;
+
+// PROCESSING VIDEO LIBRARY FOR RASPBERRY PI
+import gohai.glvideo.*;
+GLCapture video;
 
 // FOR COMPARING ARRAYS
 import java.util.Arrays;
