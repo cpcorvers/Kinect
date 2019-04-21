@@ -50,10 +50,10 @@ PVector[] camMarkers;
 
 PGraphics pg;
 
-boolean useCam      = false;
+boolean useCam      = true;
 boolean showMarkers = true;
 boolean showText    = true;
-boolean debug       = false;
+boolean debug       = true;
 
 
 /*****************************************************************************
@@ -62,7 +62,8 @@ boolean debug       = false;
  *
  *****************************************************************************/
 void setup() {
-  size(640, 480);
+  size(640, 360);
+  //size(1280, 720);
 
   // CREATE QR-CODES (for IMAGE mode)
   qrcodes.add(new QRCode("qr1.png", 10, 10, 0));
@@ -71,9 +72,16 @@ void setup() {
   //qrcodes.add(new QRCode("P4200010_2.jpg", 200, 300, 2));
 
   pg  = createGraphics(width, height);
-
+  
+  // FIND CONNECTED CAMERAS
+  //printArray(Capture.list());
+  //printArray(detectedCodes);
+  
+  
   // CREATE CAPTURE
   video = new Capture(this, width, height);
+  //video = new Capture(this,Capture.list()[0]);
+
 
   // START CAPTURING
   video.start();  
