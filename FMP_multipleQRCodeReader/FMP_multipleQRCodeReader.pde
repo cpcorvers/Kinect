@@ -1,3 +1,5 @@
+
+
 /*****************************************************************************
  *
  *  multipleQRCodeReader - v07/29/2018
@@ -31,11 +33,10 @@
 import com.cage.zxing4p3.*;
 ZXING4P zxing4p;
 
-//// PROCESSING VIDEO LIBRARY
+// PROCESSING VIDEO LIBRARY
 //import processing.video.*;
 //Capture video;
 
-// PROCESSING VIDEO LIBRARY FOR RASPBERRY PI
 import gohai.glvideo.*;
 GLCapture video;
 
@@ -66,31 +67,25 @@ boolean debug       = true;
  *
  *****************************************************************************/
 void setup() {
-  size(640, 360, P2D);
-  //size(1280, 720);
-
+  //size(320, 200, P2D);
+  size(640, 480, P2D);
+  
+  
+  //String[] devices = GLCapture.list();
+  //println("start: "); 
+  //printArray(devices);
+  
   // CREATE QR-CODES (for IMAGE mode)
   qrcodes.add(new QRCode("qr1.png", 10, 10, 0));
   qrcodes.add(new QRCode("qr2.png", 400, 240, 1));
   qrcodes.add(new QRCode("qr3.png", 200, 300, 2));
-  //qrcodes.add(new QRCode("P4200010_2.jpg", 200, 300, 2));
+ 
+  //pg  = createGraphics(width, height, P2D);
 
-  pg  = createGraphics(width, height, P2D);
-  
-  // FIND CONNECTED CAMERAS
-  //printArray(Capture.list());  
-  //printArray(GLCapture.list());
-  //printArray(detectedCodes);
-  
-  
-  //// CREATE CAPTURE
+  // CREATE CAPTURE
   //video = new Capture(this, width, height);
-  ////video = new Capture(this,Capture.list()[0]);
-
-  // CREATE CAPTURE FOR RASPBERRY PI
-  //video = new GLCapture(this, width, height);
   video = new GLCapture(this);
-  
+
   // START CAPTURING
   video.start();  
 
@@ -112,30 +107,43 @@ void draw() {
 
   if (useCam) {
     // UPDATE CAPTURE
-    if (video.available()) video.read();
-    pg.beginDraw();
-    pg.clear();
-    pg.image(video, 0, 0);
-    pg.endDraw();
-  } else {
+    if (video.available()) 
+      video.read();
+      //pg.beginDraw();
+      //pg.clear();
+      //pg.image(video,0,0);
+      //pg.endDraw();     
+      
+      //beginDraw();
+      clear();
+      image(video,0,0);
+      //endDraw();
+      
+      //image(video,0,0);
+   } else {
     // SHOW TWO QR CODES
-    pg.beginDraw();
-    pg.clear();
+    //pg.beginDraw();
+    //pg.
+    clear();
     for (int i = 0; i < qrcodes.size(); i++) {
-      pg.image(qrcodes.get(i).img, qrcodes.get(i).x, qrcodes.get(i).y);
+      //pg.
+      image(qrcodes.get(i).img, qrcodes.get(i).x, qrcodes.get(i).y);
     }
-    pg.endDraw();
+    //pg.endDraw();
+  
   } // if (useCam)
 
   // SHOW IMAGE
-  image(pg, 0, 0);
+  //image(pg, 0, 0);
+  image(video, 0, 0);
 
   // TRY TO DETECT AND DECODE A QRCODE IN THE VIDEO CAPTURE
   // decodeImage(boolean tryHarder, PImage img)
   // tryHarder: false => fast detection (less accurate)
   //            true  => best detection (little slower)
   try {  
-    detectedCodes = zxing4p.multipleQRCodeReader(pg, false);
+    //detectedCodes = zxing4p.multipleQRCodeReader(pg, false);
+    detectedCodes = zxing4p.multipleQRCodeReader(video, false);
 
     if (detectedCodes.length > 0) {
       // QR-CODES DETECTED
