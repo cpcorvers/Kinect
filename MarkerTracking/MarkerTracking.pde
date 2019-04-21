@@ -23,7 +23,9 @@ boolean[][] markerCells;
 
 void setup() {
   opencv = new OpenCV(this, "marker_test.jpg");
+  opencv = new OpenCV(this, "P4200010_2.jpg");
   size(1000, 365);
+  //size(999, 1335);
   src = opencv.getInput();
 
   // hold on to this for later, since adaptiveThreshold is destructive
