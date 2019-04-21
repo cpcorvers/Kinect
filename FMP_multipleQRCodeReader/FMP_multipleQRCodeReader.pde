@@ -66,7 +66,7 @@ boolean debug       = true;
  *
  *****************************************************************************/
 void setup() {
-  size(640, 360);
+  size(640, 360, P2D);
   //size(1280, 720);
 
   // CREATE QR-CODES (for IMAGE mode)
@@ -75,7 +75,7 @@ void setup() {
   qrcodes.add(new QRCode("qr3.png", 200, 300, 2));
   //qrcodes.add(new QRCode("P4200010_2.jpg", 200, 300, 2));
 
-  pg  = createGraphics(width, height);
+  pg  = createGraphics(width, height, P2D);
   
   // FIND CONNECTED CAMERAS
   //printArray(Capture.list());  
@@ -88,7 +88,8 @@ void setup() {
   ////video = new Capture(this,Capture.list()[0]);
 
   // CREATE CAPTURE FOR RASPBERRY PI
-  video = new GLCapture(this, width, height);
+  //video = new GLCapture(this, width, height);
+  video = new GLCapture(this);
   
   // START CAPTURING
   video.start();  
