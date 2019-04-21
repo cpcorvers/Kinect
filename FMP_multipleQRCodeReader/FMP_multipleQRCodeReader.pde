@@ -78,15 +78,18 @@ void setup() {
   pg  = createGraphics(width, height);
   
   // FIND CONNECTED CAMERAS
-  //printArray(Capture.list());
+  //printArray(Capture.list());  
+  //printArray(GLCapture.list());
   //printArray(detectedCodes);
   
   
-  // CREATE CAPTURE
-  video = new Capture(this, width, height);
-  //video = new Capture(this,Capture.list()[0]);
+  //// CREATE CAPTURE
+  //video = new Capture(this, width, height);
+  ////video = new Capture(this,Capture.list()[0]);
 
-
+  // CREATE CAPTURE FOR RASPBERRY PI
+  video = new GLCapture(this, width, height);
+  
   // START CAPTURING
   video.start();  
 
