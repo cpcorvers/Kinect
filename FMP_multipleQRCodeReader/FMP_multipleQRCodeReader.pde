@@ -176,6 +176,10 @@ void draw() {
         for (int i = 0; i < allMarkers.size(); i++) {
           camMarkers = allMarkers.get(i);
           showMarkers(camMarkers);
+          
+          println("cam Markers");
+          printArray(camMarkers);
+          
         } // for (int i = 0; i < allCamMarkers.size(); i++)
       } // if (showMarkers)
     } else {
@@ -188,6 +192,9 @@ void draw() {
       } // for (int i = 0; i < qrcodes.size(); i++)
     } // if (useCam)
     detectedCodesOld = detectedCodes;
+    
+    println("Detected Codes Old");
+    printArray(detectedCodesOld);
   }
   catch (Exception e) {
   } // try
