@@ -292,7 +292,6 @@ boolean showMarkers = true;
 boolean showText    = true;
 boolean debug       = true;
 
-
 /*****************************************************************************
  *
  *  SETUP
@@ -305,15 +304,15 @@ void setup() {
   //size(1280, 720, P2D);
   
   
-  //String[] devices = Capture.list();
-  //String[] configs = Capture.configs(devices[0]); 
+  String devices [] = Capture.list();
+  //String configs [] = Capture.configs(devices[0]); 
   
   //String[] devices = GLCapture.list();
   //String[] configs = GLCapture.configs(devices[0]);
-  //println("start: "); 
-  //printArray(devices);
+  println("start: "); 
+  printArray(devices);
   //printArray(configs);
-  //println("// end");
+  println("// end");
   
   // CREATE QR-CODES (for IMAGE mode)
   qrcodes.add(new QRCode("qr1.png", 10, 10, 0));
@@ -323,7 +322,7 @@ void setup() {
   pg  = createGraphics(width, height, P2D);
 
   // CREATE CAPTURE
-  video = new Capture(this, width, height, 30);
+  video = new Capture(this, devices[0]);
   //video = new GLCapture(this);
   //video = new GLCapture(this, devices[0], 640, 480, 40); 
   //video = new GLCapture(this, devices[0], 640, 480, 30); 
@@ -368,16 +367,13 @@ void draw() {
     //pg.
     clear();
     for (int i = 0; i < qrcodes.size(); i++) {
-      //pg.
-      image(qrcodes.get(i).img, qrcodes.get(i).x, qrcodes.get(i).y);
-    }
-    //pg.endDraw();
+      pg.image(qrcodes.get(i).img, qrcodes.get(i).x, qrcodes.get(i).y);
+    } //pg.endDraw();
   
   } // if (useCam)
 
   // SHOW IMAGE
-  //image(pg, 0, 0);
-  //image(video, 100, 100);
+  image(pg, 0, 0);
 
   // TRY TO DETECT AND DECODE A QRCODE IN THE VIDEO CAPTURE
   // decodeImage(boolean tryHarder, PImage img)
@@ -409,21 +405,21 @@ void draw() {
         if (!Arrays.equals(detectedCodes, detectedCodesOld)) {
           //println((i + 1) + ". " + detectedCodes[i]);
                     
-          println("cam Markers:");
-          printArray(camMarkers);
+          //println("cam Markers:");
+          //printArray(camMarkers);
           
           //println("Detected Codes Old:");
           //printArray(detectedCodesOld);          
           
-          println("Detected Codes:");
-          printArray(detectedCodes);
+          //println("Detected Codes:");
+          //printArray(detectedCodes);
           
           //println("All Markers:");
           //printArray(allMarkers);          
           
-          println("QR Codes:");
-          printArray(qrcodes );
-    
+          //println("QR Codes:");
+          //printArray(qrcodes );
+          
         } // if (!Arrays.equals(decodedArr, decodedArrOld))
       } // for (int i = 0; i < detectedCodes.length; i++)
     } // if (decodedArr.length > 0)
@@ -433,7 +429,8 @@ void draw() {
       if (showMarkers) {
         for (int i = 0; i < allMarkers.size(); i++) {
           camMarkers = allMarkers.get(i);
-          showMarkers(camMarkers);        
+          showMarkers(camMarkers); 
+
         } // for (int i = 0; i < allCamMarkers.size(); i++)
       } // if (showMarkers)
     } else {
@@ -442,6 +439,7 @@ void draw() {
         if (showMarkers) {
           camMarkers = allMarkers.get(i);
           showMarkers(camMarkers);
+
         }
       } // for (int i = 0; i < qrcodes.size(); i++)
     } // if (useCam)

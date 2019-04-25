@@ -38,17 +38,35 @@
  *****************************************************************************/
 void showMarkers(PVector[] markers) {
   int j;
+  float xm = (markers[0].x + markers[2].x ) /2; // Calculate the x centre of the qr code
+  float ym = (markers[0].y + markers[2].y ) /2; // Calculate the y centre of the qr code
   pushStyle();
-  //for (int q = 0; q <=detectedCodes.length; q++) { 
-  //  if (detectedCodes[q] = Rainbow unicorn) fill(0, 250, 0);
-  //  else if (detectedCodes[q].qrcodes = Background_003) fill(0, 0, 250);
-  //  else  fill(0, 100, 100);
-  //} // for (int q = 0; q <=detectedCodes.length; q++)
-  //fill(255, 0, 0);
+
+ //for (int i = 0; i < detectedCodes.length; i++) {
+ //     j = 250 ;
+ //     if (detectedCodes[i].equals("Rainbow unicorn")==true) {
+ //       fill(0,j,0);
+ //     //} // detectedCodes equal
+ //      } else if (detectedCodes[i].equals("Background_001")==true) {
+ //        fill(0,0,j);     
+ //      } else if (detectedCodes[i].equals("Background_002")==true) {
+ //        fill(j,0,j);       
+ //      } else if (detectedCodes[i].equals("Background_003")==true) {
+ //        fill(j,j,j);       
+ //      } else if (detectedCodes[i].equals("Background_004")==true) {
+ //        fill(j,0,0);       
+ //      } else if (detectedCodes[i].equals("Background_005")==true) {
+ //        fill(j,j,0);
+ //      } else  
+ //     { fill(0,0,0); }
+ //   }
+
+
+  fill(255, 0, 0);
   stroke(255, 0, 0);
   strokeWeight(2);
   rectMode(CENTER);
-  rect(markers[0].x, markers[0].y, 10, 10);
+  rect(xm, ym, 40, 40);
   
   
   //for (int p = 0; p < markers.length; p++) {
