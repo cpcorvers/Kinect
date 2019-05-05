@@ -322,7 +322,8 @@ void setup() {
   pg  = createGraphics(width, height, P2D);
 
   // CREATE CAPTURE
-  video = new Capture(this, devices[0]);
+  video = new Capture(this, devices[15]);
+  
   //video = new GLCapture(this);
   //video = new GLCapture(this, devices[0], 640, 480, 40); 
   //video = new GLCapture(this, devices[0], 640, 480, 30); 
@@ -353,6 +354,7 @@ void draw() {
       pg.beginDraw();
       pg.clear();
       pg.image(video,0,0);
+      pg.filter(THRESHOLD, 0.8);
       pg.endDraw();     
       
       //beginDraw();
