@@ -195,7 +195,11 @@ void draw() {
   //gsMeta.drawBasicBipolarPoints(0,50); //added to play with drawings
   //gsMeta.drawTiltableGaussBitsWithAreas(100,100,100); //added to play with drawings
   //gsMeta.drawBasicNorthPoint();
-  receiveData();
+  
+  
+  
+  receiveDataServer(); //uncomment for server system
+  //receiveDataClient(); //uncomment for client system
   
     
 }
