@@ -24,6 +24,7 @@ void receiveDataServer() { //receive data from client on a server
     newInput = ("no message received");
   }
   text(newInput, 50, 100, 200, 300);
+  printArray(data);
 }
 
 void receiveDataClient() { //receive data from server on a client
@@ -33,13 +34,11 @@ void receiveDataClient() { //receive data from server on a client
     data = int(split(input, ' ')); // Split values into an array
     newInput = ("Message: " + input); // Set data in string for textbox
     //dataReceived = (data[0] + data[1] + data[2] + data[3] + data[4] + data[5], data[6]);
+    pawn_x= data[5];
   } else {
     newInput = ("no message received");
   }
   text(newInput, 50, 100, 200, 300);
-}
-
-void drawPeople(){
-  
-
+  //printArray(data);    
+  //println(data[3]);
 }

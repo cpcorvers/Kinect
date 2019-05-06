@@ -7,7 +7,7 @@ void printPointData(GData g, int i) {
   String polarityString = (polarityInt==0 ? "North" : "South" ); 
   for (int j=0; j<bGaussBitsList.size(); j++) {
     GData bGaussBits = bGaussBitsList.get(j);
-    if (intensity>0) println(i+":"+polarityString +", BasicGaussBits: ~ " + (int)intensity + " gauss, (x,y)= ("+x+","+y+")" + "(x,y) = "+ ((int)bGaussBits.x*1.5) + "," +((int)bGaussBits.y*1.6875) );
+    //if (intensity>0) println(i+":"+polarityString +", BasicGaussBits: ~ " + (int)intensity + " gauss, (x,y)= ("+x+","+y+")" + "(x,y) = "+ ((int)bGaussBits.x*1.5) + "," +((int)bGaussBits.y*1.6875) );
   }
 }
 

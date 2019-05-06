@@ -96,7 +96,7 @@ void preload() {
  *******************/
 void setup() {
 
-  size(480, 240);
+  //size(480, 240);
   // START THE SERVER
   s = new Server(this, port); // Start a simple server on a port
 
@@ -106,7 +106,7 @@ void setup() {
   t1 = new Tramontana(this, device01);
   //t.setColor(255,128,128,255);
 
-  //size(1920, 1080);
+  size(1920, 1080);
   frameRate(20);
   //perspectives = loadImage("27.png");
 
@@ -175,8 +175,8 @@ void draw() {
   ArrayList<GData> bGaussBitsList = gsMeta.getBasicGaussBits(thld);
   for (int i=0; i<bGaussBitsList.size(); i++) {
     GData bGaussBits = bGaussBitsList.get(i);
-    //printPointData(bGaussBits, i);
-    //sendPointData(bGaussBits, i);
+    printPointData(bGaussBits, i);
+    sendPointData(bGaussBits, i);
     ellipseMode(CENTER);
   }
   popStyle();

@@ -7,7 +7,7 @@ void sendPointData(GData g, int i) {
   String polarityString = (polarityInt==0 ? "North" : "South" ); 
   for (int j=0; j<bGaussBitsList.size(); j++) {
     GData bGaussBits = bGaussBitsList.get(j);
-    if (intensity>0) s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + " " + ((int)bGaussBits.x*1.5) + " " +((int)bGaussBits.y*1.6875) + "\n" );
+    if (intensity>0) s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + ((int)bGaussBits.x*1.5) + " " +((int)bGaussBits.y*1.6875) + "\n" );
   } // identification - polarity - intensity - x - y - dispX - dispY
 }
 

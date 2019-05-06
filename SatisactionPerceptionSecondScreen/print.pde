@@ -10,9 +10,3 @@ void printPointData(GData g, int i) {
     if (intensity>0) println(i+":"+polarityString +", BasicGaussBits: ~ " + (int)intensity + " gauss, (x,y)= ("+x+","+y+")" + "(x,y) = "+ ((int)bGaussBits.x*1.5) + "," +((int)bGaussBits.y*1.6875) );
   }
 }
-
-
-//void printImageSecondDisplay() {  
-//  t.showImage("perspective6.png");
-//  t.showImage("27.png", 100, 100, 20, 60);
-//}
