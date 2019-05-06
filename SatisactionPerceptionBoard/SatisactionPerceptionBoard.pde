@@ -54,7 +54,9 @@ void setup() {
   //t.setColor(255,128,128,255);
 
   size(1920, 1080, P2D);
+  //size(1281, 801);
   frameRate(20);
+  println(bg[bgIndex]);
   playingfield = loadImage(bg[bgIndex]);
 
   // List all serial ports
@@ -75,8 +77,13 @@ void setup() {
  *******************/
 
 void draw() {
-  background(playingfield);
+  background(250);
+  pushMatrix();
+   translate(displayWidth, 0);
+   rotate (PI/2);
+   image(playingfield, 0, 0,displayHeight, displayWidth );
 
+  popMatrix();
   //Set variables for drawing single-layer contour map
   //Try to change the Thld to see the results
   int upsampleFactor = 5;

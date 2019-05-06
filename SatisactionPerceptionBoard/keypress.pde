@@ -3,23 +3,25 @@ void keyPressed() {
 
   /***********
    * 
-   * CHANGING BACKGROUND SECOND SCREEN WITH O AND P KEYPRESS
+   * CHANGING PLAYINGFIELD BACKGROUND WITH Q AND W KEYPRESS
    *
    ***************/
 
-  if (key == 'o') {
+  if (key == 'q') {
     if (bgIndex > 0) {
       bgIndex-- ;
     } else {
       bgIndex = bg.length-1;
     }
-    t1.showImage(bg[bgIndex]);
-  } else if (key == 'p') {
+    //t1.showImage(bg[bgIndex]);
+    playingfield = loadImage(bg[bgIndex]);
+  } else if (key == 'w') {
     if (bgIndex < (bg.length-1)) {
       bgIndex++ ;
     } else {
       bgIndex = 0;
     }
-    t1.showImage(bg[bgIndex]);
+    //t1.showImage(bg[bgIndex]);
+    playingfield = loadImage(bg[bgIndex]);
   }
 }
