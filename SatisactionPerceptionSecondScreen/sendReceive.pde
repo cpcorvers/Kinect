@@ -23,8 +23,7 @@ void receiveDataServer() { //receive data from client on a server
   } else {
     newInput = ("no message received");
   }
-  text(newInput, 50, 100, 200, 300);
-  printArray(data);
+  //text(newInput, 50, 100, 200, 300);
 }
 
 void receiveDataClient() { //receive data from server on a client
@@ -38,7 +37,7 @@ void receiveDataClient() { //receive data from server on a client
   } else {
     newInput = ("no message received");
   }
-  text(newInput, 50, 100, 200, 300);
+  //text(newInput, 50, 100, 200, 300);
   //printArray(data);    
   //println(data[3]);
 }

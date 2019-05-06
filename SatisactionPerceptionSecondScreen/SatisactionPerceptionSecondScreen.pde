@@ -92,9 +92,9 @@ void draw() {
   //println(dispX +", " + dispY);
   p.showPerson(dispX, dispY); //show a person with the person class on the second screen in other perspective
 
-  pushStyle();
-  fill(250, 0, 0);
-  ellipse(100, 100, 100, 150);
-  popStyle();
+  //pushStyle();
+  //fill(250, 0, 0);
+  //ellipse(100, 100, 100, 150);
+  //popStyle();
   
 }
