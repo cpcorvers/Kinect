@@ -1,48 +1,18 @@
 /********************
  *
- * IMPORT GAUSSE SENSE
+ * IMPORT
  *
  *******************/
 
 import processing.serial.*;
 import gausstoys.core.*;
-
-/********************
- *
- * IMPORT TRAMONTAN
- *
- *******************/
-/****
- Tramontana for Processing
- Tramontana is a tool for interactive spaces. It communicates with iOS devices. You can download the app here: https://itunes.apple.com/us/app/tramontana/id1121069555?mt=8
- made by Pierluigi Dalla Rosa
- 
- B_ChangeColor
- With this sketch you can change the color of your device. 
- 
- Don't forget to change the ipAddress below (192.168.1.17) to match the one visible on your device when you open the app.
- ***/
-
-///IMPORT TRAMONTANA
 import tramontana.library.*;
-
-///Tramontana needs websockets that can be found at:
-///https://github.com/alexandrainst/processing_websockets
 import websockets.*;
+import processing.net.*;
 
 /********************
  *
- * IMPORT SERVER CLIENT STUFF
- *
- *******************/
- 
- import processing.net.*;
-
- 
- 
- /********************
- *
- * INIT GAUSSE SENSE
+ * INIT
  *
  *******************/
 
@@ -52,42 +22,22 @@ boolean showContour = true;
 int thld = 3; //Unit: Gauss
 boolean horizontalGrid = true;
 
-//// Play with tags
-//boolean isTagOn() =true;
-//int[] getTagID();
-
 // background images
-PImage perspectives;
-String[] bg = {"perspective1.png", "perspective2.png", "perspective3.png", "perspective4.png", "perspective5.png", "perspective6.png", "perspective7.png" };
+PImage playingfield;
+String[] bg = {"playingfield1.png", "playingfield2.png", "playingfield3.png", "playingfield4.png" };
 int bgIndex = 0;
 
-
-/********************
- *
- * INIT TRAMONTAN
- *
- *******************/
-/* Create an instance of Tramonana */
+// init tramontan
 Tramontana t1;
 String device01 = "10.0.1.14";
 
-/********************
- *
- * INIT SECOND SCREEN / SERVER CLIENT
- *
- *******************/
+// INIT SECOND SCREEN / SERVER CLIENT
 Server s;
 Client c;
 String input;
 String newInput;
 int data[];
-
 int port = 12000;
-
-void preload() {
-  perspectives = loadImage("27.png");
-}
-
 
 /********************
  *
@@ -95,29 +45,20 @@ void preload() {
  *
  *******************/
 void setup() {
-
-  //size(480, 240);
   // START THE SERVER
   s = new Server(this, port); // Start a simple server on a port
-
 
   /* Start the connection with Tramontana iOS/AppleTV/Android */
   /* Look on your device for the ipAddress, it shows on the starting panel when you open the app */
   t1 = new Tramontana(this, device01);
   //t.setColor(255,128,128,255);
 
-  size(1920, 1080);
+  size(1920, 1080, P2D);
   frameRate(20);
-  //perspectives = loadImage("27.png");
+  playingfield = loadImage(bg[bgIndex]);
 
   // List all serial ports
-  GaussSense.printSerialPortList();
-
-  //// try multi display settings
-  //  GraphicsEnvironment ge = GraphicsEnvironment.
-  // getLocalGraphicsEnvironment();
-  // GraphicsDevice[] gs = ge.getScreenDevices();
-
+  //GaussSense.printSerialPortList();
 
   //Initialize the GaussSense
   for (int i = 0; i < 2; i ++) {
@@ -125,7 +66,6 @@ void setup() {
     gs[i].setCalibrationFileName("BASIC-"+i+".data");
   }
   gsMeta = new GaussSense(this, GaussSense.GSType.GAUSSSENSE_BASIC, 2, 1);
-
 }
 
 /********************
@@ -135,9 +75,8 @@ void setup() {
  *******************/
 
 void draw() {
-  background(250);
-  fill(250, 0, 0);
-  ellipse( 100, 100, 100, 150);
+  background(playingfield);
+
   //Set variables for drawing single-layer contour map
   //Try to change the Thld to see the results
   int upsampleFactor = 5;
@@ -152,7 +91,6 @@ void draw() {
       //if (s == 4) gsMeta.set(gs[i], 0, 0, 1, false, true);
     }
   }
-
 
   float scaleX = 1.4900; //1.373 //width of screen
   float scaleY = 1.550; //1.350 //hight of screen 
@@ -186,20 +124,18 @@ void draw() {
   t1.showImage(bg[bgIndex]);
   //t.playVideo("https://www.youtube.com/watch?v=x3KTCXundFo");
   //image(perspectives, 100, 100, 50, 100);
-  
+
 
   popMatrix();
-  
+
   //playing around with draw
   //gsMeta.drawBasicBipolarMidpoint(0, 75); //added to play with drawings
   //gsMeta.drawBasicBipolarPoints(0,50); //added to play with drawings
   //gsMeta.drawTiltableGaussBitsWithAreas(100,100,100); //added to play with drawings
   //gsMeta.drawBasicNorthPoint();
-  
-  
-  
+
+
+
   receiveDataServer(); //uncomment for server system
   //receiveDataClient(); //uncomment for client system
-  
-    
 }
