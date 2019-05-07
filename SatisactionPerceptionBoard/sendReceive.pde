@@ -20,6 +20,14 @@ void receiveDataServer() { //receive data from client on a server
     data = int(split(input, ' ')); // Split values into an array
     newInput = ("Message: " + input); // Set data in string for textbox
     //dataReceived = (data[0] + data[1] + data[2] + data[3] + data[4] + data[5], data[6]);
+  } else if (testBoard == true) {
+    int i = 0;
+    int x = mouseX;
+    int y = mouseY;
+    int polarityString = 1;
+    int intensity = 30;
+    s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " "  + "\n" );
+    println( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " "  + "\n" );
   } else {
     newInput = ("no message received");
   }

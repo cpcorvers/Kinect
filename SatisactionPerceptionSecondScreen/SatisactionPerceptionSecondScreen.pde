@@ -53,6 +53,8 @@ Client c;
 String input;
 String newInput;
 int data[];
+int dispX;
+int dispY;
 
 /********************
  *
@@ -87,8 +89,6 @@ void draw() {
   background(perspectives);
   fill(0, 0, 250);
   receiveDataClient(); // get data from server into data[]
-  int dispX = data[3]; // load data[3] = x coordinate of pawn on gausseSense 
-  int dispY = data[4]; // load data[4] = x coordinate of pawn on gausseSense
   //println(dispX +", " + dispY);
   p.showPerson(dispX, dispY); //show a person with the person class on the second screen in other perspective
 
@@ -96,5 +96,4 @@ void draw() {
   //fill(250, 0, 0);
   //ellipse(100, 100, 100, 150);
   //popStyle();
-  
 }

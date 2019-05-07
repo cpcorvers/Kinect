@@ -34,6 +34,8 @@ void receiveDataClient() { //receive data from server on a client
     newInput = ("Message: " + input); // Set data in string for textbox
     //dataReceived = (data[0] + data[1] + data[2] + data[3] + data[4] + data[5], data[6]);
     pawn_x= data[5];
+    dispX = data[3]; // load data[3] = x coordinate of pawn on gausseSense 
+    dispY = data[4]; // load data[4] = x coordinate of pawn on gausseSense
   } else {
     newInput = ("no message received");
   }

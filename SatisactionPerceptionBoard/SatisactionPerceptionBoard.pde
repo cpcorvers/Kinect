@@ -19,7 +19,8 @@ import processing.net.*;
 GaussSense gsMeta;
 GaussSense[] gs = new GaussSense[2];
 boolean showContour = true;
-int thld = 3; //Unit: Gauss
+boolean testBoard = true;
+int thld = 5; //Unit: Gauss
 boolean horizontalGrid = true;
 
 // background images
