@@ -185,8 +185,8 @@ class Person { // class
   // function
   public void show() { // xp, yp, scale
     scalefactor = map(pawn_y, serverDisplayHeight, 0, 2.8f, 0.9f);
-    xp = map(pawn_x, 0, serverDisplayHeight, 0, 1281);
-    zp = map(pawn_y, 0, serverDisplayHeight, 820, 400);
+    zp = map(pawn_x, 0, serverDisplayWidth, 800, 100);
+    xp = map(pawn_y, 0, serverDisplayHeight, 100, 1800);
     wp = (imagePersonWidth / scalefactor);
     hp = (imagePersonHeight / scalefactor);
 
@@ -200,16 +200,16 @@ class Person { // class
 
 
   // function
-  public void showPerson(float pawn_y, float pawn_x) { // xp, yp, scale
-    scalefactor = map(pawn_y, serverDisplayHeight, 0, 2.8f, 0.9f);
-    xp = map(pawn_x, 0, serverDisplayHeight, 0, 1281);
-    zp = map(pawn_y, 0, serverDisplayHeight, 820, 400);
-    wp = (imagePersonWidth / scalefactor);
-    hp = (imagePersonHeight / scalefactor);
-
-    image(person_abstract, xp, zp, wp, hp);
-    //image(smile00, width/2, personLevel, smileWidth/personScaleAdult, smileWidth/personScaleAdult);
-  }
+  // void showPerson(float pawn_y, float pawn_x) { // xp, yp, scale
+  //   scalefactor = map(pawn_y, serverDisplayHeight, 0, 2.8, 0.9);
+  //   xp = map(pawn_x, 0, serverDisplayHeight, 0, 1280);
+  //   zp = map(pawn_y, 0, serverDisplayHeight, 800, 200);
+  //   wp = (imagePersonWidth / scalefactor);
+  //   hp = (imagePersonHeight / scalefactor);
+  //
+  //   image(person_abstract, xp, zp, wp, hp);
+  //   //image(smile00, width/2, personLevel, smileWidth/personScaleAdult, smileWidth/personScaleAdult);
+  // }
 
   // void addPerson(float x, float y) {
   //
@@ -368,9 +368,9 @@ public void secondScreenInteraction() {
   for (Person p : screenPersons){
     p.show();
   }
-  for (Person p : boardPersons){
-    p.show();
-  };
+  // for (Person p : boardPersons){
+  //   p.show();
+  // };
   // for (Person p : historyPersons){
   //   p.show();
   // };

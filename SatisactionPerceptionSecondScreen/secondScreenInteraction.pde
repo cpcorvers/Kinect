@@ -82,9 +82,9 @@ void secondScreenInteraction() {
   for (Person p : screenPersons){
     p.show();
   }
-  for (Person p : boardPersons){
-    p.show();
-  };
+  // for (Person p : boardPersons){
+  //   p.show();
+  // };
   // for (Person p : historyPersons){
   //   p.show();
   // };
