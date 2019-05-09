@@ -2,12 +2,17 @@ void sendPointData(GData g, int i) {
   ArrayList<GData> bGaussBitsList = gsMeta.getBasicGaussBits(thld);//API Demos
   int polarityInt = g.getPolarity(); //Get the polarity in Int. 0: North, 1:South
   int intensity = (int) g.getIntensity(); //Get the intensity. Unit: gauss
-  int x = (int) g.getX(); //Get the X coordinate on the display
-  int y = (int) g.getY(); //Get the Y coordinate on the display
-  String polarityString = (polarityInt==0 ? "North" : "South" ); 
+  int x = round((int) g.getX()); //Get the X coordinate on the display
+  int y = round((int) g.getY()); //Get the Y coordinate on the display
+
+  String polarityString = (polarityInt==0 ? "North" : "South" );
   for (int j=0; j<bGaussBitsList.size(); j++) {
     GData bGaussBits = bGaussBitsList.get(j);
-    if (intensity>0) s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + ((int)bGaussBits.x*1.5) + " " +((int)bGaussBits.y*1.6875) + "\n" );
+    int xx = round(((int)bGaussBits.x*1.5));
+    int yy = round(((int)bGaussBits.y*1.6875));
+    // if (intensity>0) s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + ((int)bGaussBits.x*1.5) + " " +((int)bGaussBits.y*1.6875) + "\n" );
+    if (intensity>0) s.write( i + " " + polarityInt + " " + intensity + " " + x + " " + y +  " " + xx + " " + yy + "\n" );
+    //println( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + xx + " " + yy + "\n" );
   } // identification - polarity - intensity - x - y - dispX - dispY
 }
 
@@ -27,7 +32,7 @@ void receiveDataServer() { //receive data from client on a server
     int polarityString = 1;
     int intensity = 30;
     s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " "  + "\n" );
-    println( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " "  + "\n" );
+    //println( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " "  + "\n" );
   } else {
     newInput = ("no message received");
   }

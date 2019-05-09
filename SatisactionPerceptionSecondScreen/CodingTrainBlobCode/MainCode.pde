@@ -68,7 +68,7 @@ void draw() {
       if (d < threshold*threshold) {
 
         boolean found = false;
-        for (Blob b : currentBlobs) {
+        for (k) {
           if (b.isNear(x, y)) {
             b.add(x, y);
             found = true;
@@ -128,6 +128,8 @@ void draw() {
     for (Blob b : blobs) {
       b.taken = false;
     }
+
+
     // Match whatever blobs you can match
     for (Blob cb : currentBlobs) {
       float recordD = 1000;

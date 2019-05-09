@@ -19,7 +19,7 @@ import processing.net.*;
 GaussSense gsMeta;
 GaussSense[] gs = new GaussSense[2];
 boolean showContour = true;
-boolean testBoard = false;
+boolean testBoard = true;
 int thld = 5; //Unit: Gauss
 boolean horizontalGrid = true;
 
@@ -28,9 +28,9 @@ PImage playingfield;
 String[] bg = {"playingfield1.png", "playingfield2.png", "playingfield3.png", "playingfield4.png" };
 int bgIndex = 0;
 
-// init tramontan
-Tramontana t1;
-String device01 = "10.0.1.14";
+//// init tramontan
+//Tramontana t1;
+//String device01 = "10.0.1.14";
 
 // INIT SECOND SCREEN / SERVER CLIENT
 Server s;
@@ -38,7 +38,7 @@ Client c;
 String input;
 String newInput;
 int data[];
-int port = 12000;
+int port = 3030;
 
 // TEST WITH BITS blobs
 ArrayList<Bit> currentBits = new ArrayList<Bit>();
@@ -56,17 +56,17 @@ void setup() {
 
   /* Start the connection with Tramontana iOS/AppleTV/Android */
   /* Look on your device for the ipAddress, it shows on the starting panel when you open the app */
-  t1 = new Tramontana(this, device01);
+  //t1 = new Tramontana(this, device01);
   //t.setColor(255,128,128,255);
 
   size(1920, 1080, P2D);
   //size(1281, 801);
   frameRate(20);
-  println(bg[bgIndex]);
+  //println(bg[bgIndex]);
   playingfield = loadImage(bg[bgIndex]);
 
   // List all serial ports
-  //GaussSense.printSerialPortList();
+  GaussSense.printSerialPortList();
 
   //Initialize the GaussSense
   for (int i = 0; i < 2; i ++) {
@@ -133,7 +133,7 @@ void draw() {
    GData bGaussBits = bGaussBitsList.get(i);
    printPointData(bGaussBits, i);
    sendPointData(bGaussBits, i);
-   bitsInArray(bGaussBits, i);
+   //bitsInArray(bGaussBits, i);
    ellipseMode(CENTER);
   }
 

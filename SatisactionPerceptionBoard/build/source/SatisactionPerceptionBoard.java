@@ -41,7 +41,7 @@ public class SatisactionPerceptionBoard extends PApplet {
 GaussSense gsMeta;
 GaussSense[] gs = new GaussSense[2];
 boolean showContour = true;
-boolean testBoard = false;
+boolean testBoard = true;
 int thld = 5; //Unit: Gauss
 boolean horizontalGrid = true;
 
@@ -50,9 +50,9 @@ PImage playingfield;
 String[] bg = {"playingfield1.png", "playingfield2.png", "playingfield3.png", "playingfield4.png" };
 int bgIndex = 0;
 
-// init tramontan
-Tramontana t1;
-String device01 = "10.0.1.14";
+//// init tramontan
+//Tramontana t1;
+//String device01 = "10.0.1.14";
 
 // INIT SECOND SCREEN / SERVER CLIENT
 Server s;
@@ -60,7 +60,7 @@ Client c;
 String input;
 String newInput;
 int data[];
-int port = 12000;
+int port = 3030;
 
 // TEST WITH BITS blobs
 ArrayList<Bit> currentBits = new ArrayList<Bit>();
@@ -78,17 +78,17 @@ public void setup() {
 
   /* Start the connection with Tramontana iOS/AppleTV/Android */
   /* Look on your device for the ipAddress, it shows on the starting panel when you open the app */
-  t1 = new Tramontana(this, device01);
+  //t1 = new Tramontana(this, device01);
   //t.setColor(255,128,128,255);
 
   
   //size(1281, 801);
   frameRate(20);
-  println(bg[bgIndex]);
+  //println(bg[bgIndex]);
   playingfield = loadImage(bg[bgIndex]);
 
   // List all serial ports
-  //GaussSense.printSerialPortList();
+  GaussSense.printSerialPortList();
 
   //Initialize the GaussSense
   for (int i = 0; i < 2; i ++) {
@@ -155,7 +155,7 @@ public void draw() {
    GData bGaussBits = bGaussBitsList.get(i);
    printPointData(bGaussBits, i);
    sendPointData(bGaussBits, i);
-   bitsInArray(bGaussBits, i);
+   //bitsInArray(bGaussBits, i);
    ellipseMode(CENTER);
   }
 
@@ -261,150 +261,6 @@ public float distSq(float x1, float y1, float z1, float x2, float y2, float z2) 
   return d;
 }
 }
-// snapshot of board with characters (e.g. GausseSense with GausseBits) into ArrayCurrentState
-// compare the snapshot with ArrayHistoryState
-// Prevent movement on small instability of GausseSense: If change is within 5.0px then no change otherwise add new state to ArrayHistoryState
-// Create dataset/Array of movements of Bits on the Sense
-// Create improvement of data exchange over client/server
-public void bitsInArray(GData g, int i) {
-  println("bitsInArray started");
-
-
-
-
-  ArrayList<Bit> currentBits = new ArrayList<Bit>();
-
-  // int[] currentGaussBitsList = new int[5];
-
-  ArrayList<GData> bGaussBitsList = gsMeta.getBasicGaussBits(thld);//API Demos
-  int polarityInt = g.getPolarity(); //Get the polarity in Int. 0: North, 1:South
-  int intensity = (int) g.getIntensity(); //Get the intensity. Unit: gauss
-  int x = (int) g.getX(); //Get the X coordinate on the display
-  int y = (int) g.getY(); //Get the Y coordinate on the display
-  // String polarityString = (polarityInt==0 ? "North" : "South" );
-  for (int j=0; j<bGaussBitsList.size(); j++) {
-    GData bGaussBits = bGaussBitsList.get(j);
-    if (intensity>0) {
-      // s.write( j + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + ((int)bGaussBits.x*1.5) + " " +((int)bGaussBits.y*1.6875) + "\n" );
-      boolean found = false;
-      for (Bit b : currentBits) {
-        if (b.isNear(x,y)) {
-          b.add(x, y); //, intensity, polarityInt);
-          found = true;
-          break;
-        }
-      }
-      if (!found) {
-        Bit b = new Bit(x,y);
-        currentBits.add(b);
-      }
-    }
-  } // identification - polarity - intensity - x - y - dispX - dispY
-for (Bit b: currentBits) {
-  b.show();
-}
-
-
-  println("bitsInArray finished");
-  // printArray(currentBitsList);
-
-}
-
-//
-//
-//
-//
-//   ArrayList<GData> currentGaussBitsList = new ArrayList<GData>();
-//   ArrayList<GData> historyGaussBitsList = new ArrayList<GData>();
-//
-//
-//
-// }
-//
-// //printPointData
-//   ArrayList<GData> bGaussBitsList = gsMeta.getBasicGaussBits(thld);//API Demos
-//   int polarityInt = g.getPolarity(); //Get the polarity in Int. 0: North, 1:South
-//   int intensity = (int) g.getIntensity(); //Get the intensity. Unit: gauss
-//   int x = (int) g.getX(); //Get the X coordinate on the display
-//   int y = (int) g.getY(); //Get the Y coordinate on the display
-//   String polarityString = (polarityInt==0 ? "North" : "South" );
-//   for (int j=0; j<bGaussBitsList.size(); j++) {
-//     GData bGaussBits = bGaussBitsList.get(j);
-//     //if (intensity>0) println(i+":"+polarityString +", BasicGaussBits: ~ " + (int)intensity + " gauss, (x,y)= ("+x+","+y+")" + "(x,y) = "+ ((int)bGaussBits.x*1.5) + "," +((int)bGaussBits.y*1.6875) );
-//   }
-// // end printPointData
-//
-//
-//   // There are no blobs!
-//   if (blobs.isEmpty() && currentBlobs.size() > 0) {
-//     println("Adding blobs!");
-//     for (Blob b : currentBlobs) {
-//       b.id = blobCounter;
-//       blobs.add(b);
-//       blobCounter++;
-//     }
-//   } else if (blobs.size() <= currentBlobs.size()) {
-//     // Match whatever blobs you can match
-//     for (Blob b : blobs) {
-//       float recordD = 1000;
-//       Blob matched = null;
-//       for (Blob cb : currentBlobs) {
-//         PVector centerB = b.getCenter();
-//         PVector centerCB = cb.getCenter();
-//         float d = PVector.dist(centerB, centerCB);
-//         if (d < recordD && !cb.taken) {
-//           recordD = d;
-//           matched = cb;
-//         }
-//       }
-//       matched.taken = true;
-//       b.become(matched);
-//     }
-//
-//     // Whatever is leftover make new blobs
-//     for (Blob b : currentBlobs) {
-//       if (!b.taken) {
-//         b.id = blobCounter;
-//         blobs.add(b);
-//         blobCounter++;
-//       }
-//     }
-//   } else if (blobs.size() > currentBlobs.size()) {
-//     for (Blob b : blobs) {
-//       b.taken = false;
-//     }
-//
-//
-//     // Match whatever blobs you can match
-//     for (Blob cb : currentBlobs) {
-//       float recordD = 1000;
-//       Blob matched = null;
-//       for (Blob b : blobs) {
-//         PVector centerB = b.getCenter();
-//         PVector centerCB = cb.getCenter();
-//         float d = PVector.dist(centerB, centerCB);
-//         if (d < recordD && !b.taken) {
-//           recordD = d;
-//           matched = b;
-//         }
-//       }
-//       if (matched != null) {
-//         matched.taken = true;
-//         matched.become(cb);
-//       }
-//     }
-//
-//     for (int i = blobs.size() - 1; i >= 0; i--) {
-//       Blob b = blobs.get(i);
-//       if (!b.taken) {
-//         blobs.remove(i);
-//       }
-//     }
-//   }
-//
-//   for (Blob b : blobs) {
-//     b.show();
-//   }
 public void keyPressed() {
   // if (key == 'd') {
   //   ArrayList<GData> bGaussBitsList = gsMeta.getBasicGaussBits(thld);
@@ -461,12 +317,16 @@ public void sendPointData(GData g, int i) {
   ArrayList<GData> bGaussBitsList = gsMeta.getBasicGaussBits(thld);//API Demos
   int polarityInt = g.getPolarity(); //Get the polarity in Int. 0: North, 1:South
   int intensity = (int) g.getIntensity(); //Get the intensity. Unit: gauss
-  int x = (int) g.getX(); //Get the X coordinate on the display
-  int y = (int) g.getY(); //Get the Y coordinate on the display
+  int x = round((int) g.getX()); //Get the X coordinate on the display
+  int y = round((int) g.getY()); //Get the Y coordinate on the display
+
   String polarityString = (polarityInt==0 ? "North" : "South" ); 
   for (int j=0; j<bGaussBitsList.size(); j++) {
     GData bGaussBits = bGaussBitsList.get(j);
+    float xx = round(((int)bGaussBits.x*1.5f));
+    float yy = round(((int)bGaussBits.y*1.6875f));
     if (intensity>0) s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + ((int)bGaussBits.x*1.5f) + " " +((int)bGaussBits.y*1.6875f) + "\n" );
+    //println( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + xx + " " + yy + "\n" );
   } // identification - polarity - intensity - x - y - dispX - dispY
 }
 
@@ -486,7 +346,7 @@ public void receiveDataServer() { //receive data from client on a server
     int polarityString = 1;
     int intensity = 30;
     s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " "  + "\n" );
-    println( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " "  + "\n" );
+    //println( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " "  + "\n" );
   } else {
     newInput = ("no message received");
   }

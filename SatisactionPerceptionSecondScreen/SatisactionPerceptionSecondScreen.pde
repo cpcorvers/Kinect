@@ -1,6 +1,6 @@
 /********************
  *
- * IMPORT 
+ * IMPORT
  *
  *******************/
 
@@ -12,7 +12,7 @@ import processing.net.*;
 
 /********************
  *
- * INIT 
+ * INIT
  *
  *******************/
 
@@ -39,22 +39,33 @@ PImage smile04;
 PImage smile05;
 
 Person p;
-float pawn_x;
-float pawn_y; 
-float pawn_ID;
+// float pawn_x;
+// float pawn_y;
+// float pawn_ID;
+
+float dispX;
+float dispY;
+
+PVector person;
 
 Tramontana t1;
 String device01 = "10.0.1.14";
 
 //INIT SECOND SCREEN / SERVER CLIENT
-int port = 12000;
+int port = 3030;
 Server s;
 Client c;
 String input;
+// String input2;
 String newInput;
 int data[];
-int dispX;
-int dispY;
+// int dispX;
+// int dispY;
+int personCounter = 0;
+
+ArrayList<Person> boardPersons;
+ArrayList<Person> screenPersons;
+ArrayList<Person> historyPersons;
 
 /********************
  *
@@ -77,7 +88,9 @@ void setup() {
   // START THE SERVER OR CLIENT
   //s = new Server(this, port); // Start a simple server on a port, uncomment when on sercer system
   c = new Client(this, "10.0.1.3", port); // uncomment when on client system
-  p = new Person();
+  boardPersons = new ArrayList<Person>();
+  screenPersons = new ArrayList<Person>();
+  historyPersons = new ArrayList<Person>();
 }
 /********************
  *
@@ -88,12 +101,15 @@ void setup() {
 void draw() {
   background(perspectives);
   fill(0, 0, 250);
-  receiveDataClient(); // get data from server into data[]
-  //println(dispX +", " + dispY);
-  p.showPerson(dispX, dispY); //show a person with the person class on the second screen in other perspective
-
-  //pushStyle();
-  //fill(250, 0, 0);
-  //ellipse(100, 100, 100, 150);
-  //popStyle();
+  receiveDataClient(); // get data from server into data[ identification - polarity - intensity - x - y - xx - yy ]
+  secondScreenInteraction();
+  // for (Person p : screenPersons){
+  //   p.show();
+  // };
+  // // for (Person p : boardPersons){
+  //   p.show();
+  // };
+  // for (Person p : historyPersons){
+  //   p.show();
+  // };
 }
