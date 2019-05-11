@@ -56,6 +56,7 @@ void receiveDataClient() { //receive data from server on a client
      float x = parseFloat (data[3]);
      float y = parseFloat (data[4]);
      boardPersons.add(new Person(x, y));
+     println(data);
      // personCounter++;
   // } else if (c.available() <= 0 && boardPersons.size() <= 0) {
     // // println("no pawns on the board");

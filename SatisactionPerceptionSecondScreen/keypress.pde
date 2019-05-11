@@ -1,5 +1,9 @@
 void keyPressed() {
+<<<<<<< HEAD
   // if (key == 'd') t1.takePictureWithUI(0);
+=======
+  //if (key == 'd') t1.takePictureWithUI(0);
+>>>>>>> 8468d79766c20f21f51fcd7b7abc764379ae4466
 
   /***********
    *

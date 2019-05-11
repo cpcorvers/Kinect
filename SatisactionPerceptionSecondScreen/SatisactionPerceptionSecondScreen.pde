@@ -31,12 +31,12 @@ int bgIndex = 0;
 // other images
 PImage house;
 PImage person_abstract;
-PImage smile00;
-PImage smile01;
-PImage smile02;
-PImage smile03;
-PImage smile04;
-PImage smile05;
+// PImage smile00;
+// PImage smile01;
+// PImage smile02;
+// PImage smile03;
+// PImage smile04;
+// PImage smile05;
 
 Person p;
 // float pawn_x;
@@ -48,8 +48,8 @@ float dispY;
 
 PVector person;
 
-Tramontana t1;
-String device01 = "10.0.1.14";
+// Tramontana t1;
+// String device01 = "10.0.1.14";
 
 //INIT SECOND SCREEN / SERVER CLIENT
 int port = 3030;
@@ -78,12 +78,12 @@ void setup() {
 
   perspectives = loadImage(bg[bgIndex]);
   person_abstract = loadImage("27.png");
-  smile00 = loadImage("34.png");
-  smile01 = loadImage("29.png");
-  smile02 = loadImage("30.png");
-  smile03 = loadImage("31.png");
-  smile04 = loadImage("32.png");
-  smile05 = loadImage("33.png");
+  // smile00 = loadImage("34.png");
+  // smile01 = loadImage("29.png");
+  // smile02 = loadImage("30.png");
+  // smile03 = loadImage("31.png");
+  // smile04 = loadImage("32.png");
+  // smile05 = loadImage("33.png");
 
   // START THE SERVER OR CLIENT
   //s = new Server(this, port); // Start a simple server on a port, uncomment when on sercer system
