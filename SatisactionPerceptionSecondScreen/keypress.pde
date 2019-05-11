@@ -1,5 +1,5 @@
 void keyPressed() {
-  if (key == 'd') t1.takePictureWithUI(0);
+  //if (key == 'd') t1.takePictureWithUI(0);
 
   /***********
    * 

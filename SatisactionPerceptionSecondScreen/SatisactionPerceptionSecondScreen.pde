@@ -31,12 +31,12 @@ int bgIndex = 0;
 // other images
 PImage house;
 PImage person_abstract;
-PImage smile00;
-PImage smile01;
-PImage smile02;
-PImage smile03;
-PImage smile04;
-PImage smile05;
+//PImage smile00;
+//PImage smile01;
+//PImage smile02;
+//PImage smile03;
+//PImage smile04;
+//PImage smile05;
 
 Person p;
 // float pawn_x;
@@ -48,8 +48,8 @@ float dispY;
 
 PVector person;
 
-Tramontana t1;
-String device01 = "10.0.1.14";
+//Tramontana t1;
+//String device01 = "10.0.1.14";
 
 //INIT SECOND SCREEN / SERVER CLIENT
 int port = 3030;
@@ -73,23 +73,24 @@ ArrayList<Person> historyPersons;
  *
  *******************/
 void setup() {
-  size(1281, 801, P2D);
-  //frameRate(20);
+  //size(640, 400, P2D);
+  size(1280, 800, P2D);
+  frameRate(60);
 
   perspectives = loadImage(bg[bgIndex]);
   person_abstract = loadImage("27.png");
-  smile00 = loadImage("34.png");
-  smile01 = loadImage("29.png");
-  smile02 = loadImage("30.png");
-  smile03 = loadImage("31.png");
-  smile04 = loadImage("32.png");
-  smile05 = loadImage("33.png");
+  //smile00 = loadImage("34.png");
+  //smile01 = loadImage("29.png");
+  //smile02 = loadImage("30.png");
+  //smile03 = loadImage("31.png");
+  //smile04 = loadImage("32.png");
+  //smile05 = loadImage("33.png");
 
   // START THE SERVER OR CLIENT
   //s = new Server(this, port); // Start a simple server on a port, uncomment when on sercer system
-  // c = new Client(this, "10.0.1.3", port); // uncomment when on client system
-
-  c = new Client(this, "127.0.0.1", port); // uncomment when on client system
+   c = new Client(this, "10.0.1.3", port); // uncomment when on client system
+println("client connected");
+  //c = new Client(this, "127.0.0.1", port); // uncomment when on client system
 
   boardPersons = new ArrayList<Person>();
   screenPersons = new ArrayList<Person>();
@@ -102,7 +103,8 @@ void setup() {
  *******************/
 
 void draw() {
-  background(perspectives);
+  background(250,100,10);
+  //background(perspectives);
   fill(0, 0, 250);
   receiveDataClient(); // get data from server into data[ identification - polarity - intensity - x - y - xx - yy ]
   secondScreenInteraction();
