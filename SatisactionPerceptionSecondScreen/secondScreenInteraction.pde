@@ -78,7 +78,7 @@ void secondScreenInteraction() {
       }
     }
   }
-
+image(perspectives, 0,0,1280,800);
   for (Person p : screenPersons){
     p.show();
   }
