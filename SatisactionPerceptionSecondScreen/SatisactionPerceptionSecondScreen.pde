@@ -24,9 +24,11 @@ boolean horizontalGrid = true;
 
 // background images
 PImage perspectives;
-PImage perspectives2;
-String[] bg = {"perspective1.png", "perspective2.png", "perspective3.png", "perspective4.png", "perspective5.png", "perspective6.png", "perspective7.png" };
+//PImage perspectives2;
+//String[] bg = {"perspective1.png", "perspective2.png", "perspective3.png", "perspective4.png", "perspective5.png", "perspective6.png", "perspective7.png" };
+//String[] bg = {"perspective1.png", "perspective2.png"};
 int bgIndex = 0;
+PImage bgImage;
 
 // other images
 PImage house;
@@ -73,10 +75,10 @@ ArrayList<Person> historyPersons;
  *
  *******************/
 void setup() {
-  size(1281, 801, P2D);
-  //frameRate(20);
-
-  perspectives = loadImage(bg[bgIndex]);
+  size(1280, 800, P2D);
+  //frameRate(60);
+  bgImage = loadImage("perspective1.png");
+  //perspectives = loadImage(bg[bgIndex]);
   person_abstract = loadImage("27.png");
   // smile00 = loadImage("34.png");
   // smile01 = loadImage("29.png");
@@ -102,7 +104,8 @@ void setup() {
  *******************/
 
 void draw() {
-  background(perspectives);
+  //background(perspectives);
+  background(bgImage);
   fill(0, 0, 250);
   receiveDataClient(); // get data from server into data[ identification - polarity - intensity - x - y - xx - yy ]
   secondScreenInteraction();
