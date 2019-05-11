@@ -87,9 +87,9 @@ void setup() {
 
   // START THE SERVER OR CLIENT
   //s = new Server(this, port); // Start a simple server on a port, uncomment when on sercer system
-  // c = new Client(this, "10.0.1.3", port); // uncomment when on client system
+  c = new Client(this, "10.0.1.3", port); // uncomment when on client system
 
-  c = new Client(this, "127.0.0.1", port); // uncomment when on client system
+  // c = new Client(this, "127.0.0.1", port); // uncomment when on client system
 
   boardPersons = new ArrayList<Person>();
   screenPersons = new ArrayList<Person>();

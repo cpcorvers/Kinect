@@ -1,8 +1,8 @@
 void keyPressed() {
-  if (key == 'd') t1.takePictureWithUI(0);
+  // if (key == 'd') t1.takePictureWithUI(0);
 
   /***********
-   * 
+   *
    * CHANGING BACKGROUND SECOND SCREEN WITH O AND P KEYPRESS
    *
    ***************/
