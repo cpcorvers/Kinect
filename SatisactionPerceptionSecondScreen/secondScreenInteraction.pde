@@ -88,4 +88,19 @@ void secondScreenInteraction() {
   // for (Person p : historyPersons){
   //   p.show();
   // };
+
+  if (screenPersons.size() > 1000) {
+    for (int i = screenPersons.size() - 1; i >= 0; i--) {
+      Person p = screenPersons.get(i);
+      if (!p.taken) {
+        screenPersons.remove(i);
+      }
+    }
+    for (int i = boardPersons.size() - 1; i >= 0; i--) {
+      Person p = boardPersons.get(i);
+      if (!p.taken) {
+        boardPersons.remove(i);
+      }
+    }
+  }
 }

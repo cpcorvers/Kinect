@@ -42,7 +42,7 @@ GaussSense gsMeta;
 GaussSense[] gs = new GaussSense[2];
 boolean showContour = true;
 boolean testBoard = true;
-int thld = 5; //Unit: Gauss
+int thld = 6 ; //Unit: Gauss
 boolean horizontalGrid = true;
 
 // background images
@@ -320,12 +320,13 @@ public void sendPointData(GData g, int i) {
   int x = round((int) g.getX()); //Get the X coordinate on the display
   int y = round((int) g.getY()); //Get the Y coordinate on the display
 
-  String polarityString = (polarityInt==0 ? "North" : "South" ); 
+  String polarityString = (polarityInt==0 ? "North" : "South" );
   for (int j=0; j<bGaussBitsList.size(); j++) {
     GData bGaussBits = bGaussBitsList.get(j);
-    float xx = round(((int)bGaussBits.x*1.5f));
-    float yy = round(((int)bGaussBits.y*1.6875f));
-    if (intensity>0) s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + ((int)bGaussBits.x*1.5f) + " " +((int)bGaussBits.y*1.6875f) + "\n" );
+    int xx = round(((int)bGaussBits.x*1.5f));
+    int yy = round(((int)bGaussBits.y*1.6875f));
+    // if (intensity>0) s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + ((int)bGaussBits.x*1.5) + " " +((int)bGaussBits.y*1.6875) + "\n" );
+    if (intensity>0) s.write( i + " " + polarityInt + " " + intensity + " " + x + " " + y +  " " + xx + " " + yy + "\n" );
     //println( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + xx + " " + yy + "\n" );
   } // identification - polarity - intensity - x - y - dispX - dispY
 }

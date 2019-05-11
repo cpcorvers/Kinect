@@ -41,7 +41,7 @@ public class SatisactionPerceptionSecondScreen extends PApplet {
 GaussSense gsMeta;
 GaussSense[] gs = new GaussSense[2];
 boolean showContour = true;
-int thld = 3; //Unit: Gauss
+int thld = 5; //Unit: Gauss
 boolean horizontalGrid = true;
 
 // background images
@@ -109,7 +109,10 @@ public void setup() {
 
   // START THE SERVER OR CLIENT
   //s = new Server(this, port); // Start a simple server on a port, uncomment when on sercer system
-  c = new Client(this, "10.0.1.3", port); // uncomment when on client system
+  // c = new Client(this, "10.0.1.3", port); // uncomment when on client system
+
+  c = new Client(this, "127.0.0.1", port); // uncomment when on client system
+
   boardPersons = new ArrayList<Person>();
   screenPersons = new ArrayList<Person>();
   historyPersons = new ArrayList<Person>();
@@ -184,7 +187,7 @@ class Person { // class
 
   // function
   public void show() { // xp, yp, scale
-    scalefactor = map(pawn_y, serverDisplayHeight, 0, 2.8f, 0.9f);
+    scalefactor = map(pawn_x, serverDisplayHeight, 0, 2.8f, 0.9f);
     zp = map(pawn_x, 0, serverDisplayWidth, 800, 100);
     xp = map(pawn_y, 0, serverDisplayHeight, 100, 1800);
     wp = (imagePersonWidth / scalefactor);
@@ -374,6 +377,21 @@ public void secondScreenInteraction() {
   // for (Person p : historyPersons){
   //   p.show();
   // };
+
+  if (screenPersons.size() > 1000) {
+    for (int i = screenPersons.size() - 1; i >= 0; i--) {
+      Person p = screenPersons.get(i);
+      if (!p.taken) {
+        screenPersons.remove(i);
+      }
+    }
+    for (int i = boardPersons.size() - 1; i >= 0; i--) {
+      Person p = boardPersons.get(i);
+      if (!p.taken) {
+        boardPersons.remove(i);
+      }
+    }
+  }
 }
 public void sendPointData(GData g, int i) {
   ArrayList<GData> bGaussBitsList = gsMeta.getBasicGaussBits(thld);//API Demos

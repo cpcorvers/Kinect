@@ -20,7 +20,7 @@ GaussSense gsMeta;
 GaussSense[] gs = new GaussSense[2];
 boolean showContour = true;
 boolean testBoard = true;
-int thld = 5; //Unit: Gauss
+int thld = 6 ; //Unit: Gauss
 boolean horizontalGrid = true;
 
 // background images

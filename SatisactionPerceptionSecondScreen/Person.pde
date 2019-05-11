@@ -47,7 +47,7 @@ class Person { // class
 
   // function
   void show() { // xp, yp, scale
-    scalefactor = map(pawn_y, serverDisplayHeight, 0, 2.8, 0.9);
+    scalefactor = map(pawn_x, serverDisplayHeight, 0, 2.8, 0.9);
     zp = map(pawn_x, 0, serverDisplayWidth, 800, 100);
     xp = map(pawn_y, 0, serverDisplayHeight, 100, 1800);
     wp = (imagePersonWidth / scalefactor);
