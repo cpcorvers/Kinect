@@ -4,9 +4,6 @@ import processing.event.*;
 import processing.opengl.*; 
 
 import processing.serial.*; 
-import gausstoys.core.*; 
-import tramontana.library.*; 
-import websockets.*; 
 import processing.net.*; 
 
 import java.util.HashMap; 
@@ -27,9 +24,9 @@ public class SatisactionPerceptionSecondScreen extends PApplet {
  *******************/
 
 
-
-
-
+// import gausstoys.core.*;
+// import tramontana.library.*;
+// import websockets.*;
 
 
 /********************
@@ -38,27 +35,29 @@ public class SatisactionPerceptionSecondScreen extends PApplet {
  *
  *******************/
 
-GaussSense gsMeta;
-GaussSense[] gs = new GaussSense[2];
-boolean showContour = true;
-int thld = 5; //Unit: Gauss
-boolean horizontalGrid = true;
+// GaussSense gsMeta;
+// GaussSense[] gs = new GaussSense[2];
+// boolean showContour = true;
+// int thld = 5; //Unit: Gauss
+// boolean horizontalGrid = true;
 
 // background images
 PImage perspectives;
-PImage perspectives2;
-String[] bg = {"perspective1.png", "perspective2.png", "perspective3.png", "perspective4.png", "perspective5.png", "perspective6.png", "perspective7.png" };
+//PImage perspectives2;
+//String[] bg = {"perspective1.png", "perspective2.png", "perspective3.png", "perspective4.png", "perspective5.png", "perspective6.png", "perspective7.png" };
+//String[] bg = {"perspective1.png", "perspective2.png"};
 int bgIndex = 0;
+PImage bgImage;
 
 // other images
-PImage house;
+// PImage house;
 PImage person_abstract;
-PImage smile00;
-PImage smile01;
-PImage smile02;
-PImage smile03;
-PImage smile04;
-PImage smile05;
+// PImage smile00;
+// PImage smile01;
+// PImage smile02;
+// PImage smile03;
+// PImage smile04;
+// PImage smile05;
 
 Person p;
 // float pawn_x;
@@ -70,12 +69,12 @@ float dispY;
 
 PVector person;
 
-Tramontana t1;
-String device01 = "10.0.1.14";
+// Tramontana t1;
+// String device01 = "10.0.1.14";
 
 //INIT SECOND SCREEN / SERVER CLIENT
 int port = 3030;
-Server s;
+// Server s;
 Client c;
 String input;
 // String input2;
@@ -96,16 +95,16 @@ ArrayList<Person> historyPersons;
  *******************/
 public void setup() {
   
-  //frameRate(20);
-
-  perspectives = loadImage(bg[bgIndex]);
+  //frameRate(60);
+  bgImage = loadImage("perspective1.png");
+  //perspectives = loadImage(bg[bgIndex]);
   person_abstract = loadImage("27.png");
-  smile00 = loadImage("34.png");
-  smile01 = loadImage("29.png");
-  smile02 = loadImage("30.png");
-  smile03 = loadImage("31.png");
-  smile04 = loadImage("32.png");
-  smile05 = loadImage("33.png");
+  // smile00 = loadImage("34.png");
+  // smile01 = loadImage("29.png");
+  // smile02 = loadImage("30.png");
+  // smile03 = loadImage("31.png");
+  // smile04 = loadImage("32.png");
+  // smile05 = loadImage("33.png");
 
   // START THE SERVER OR CLIENT
   //s = new Server(this, port); // Start a simple server on a port, uncomment when on sercer system
@@ -124,7 +123,8 @@ public void setup() {
  *******************/
 
 public void draw() {
-  background(perspectives);
+  //background(perspectives);
+  background(bgImage);
   fill(0, 0, 250);
   receiveDataClient(); // get data from server into data[ identification - polarity - intensity - x - y - xx - yy ]
   secondScreenInteraction();
@@ -260,33 +260,32 @@ class Person { // class
    }
    */
 }
-public void keyPressed() {
-  if (key == 'd') t1.takePictureWithUI(0);
+//void keyPressed() {
+//  // if (key == 'd') t1.takePictureWithUI(0);
+//  /***********
+//   *
+//   * CHANGING BACKGROUND SECOND SCREEN WITH O AND P KEYPRESS
+//   *
+//   ***************/
 
-  /***********
-   * 
-   * CHANGING BACKGROUND SECOND SCREEN WITH O AND P KEYPRESS
-   *
-   ***************/
-
-  if (key == 'o') {
-    if (bgIndex > 0) {
-      bgIndex-- ;
-    } else {
-      bgIndex = bg.length-1;
-    }
-    //t1.showImage(bg[bgIndex]);
-    perspectives = loadImage(bg[bgIndex]);
-  } else if (key == 'p') {
-    if (bgIndex < (bg.length-1)) {
-      bgIndex++ ;
-    } else {
-      bgIndex = 0;
-    }
-    //t1.showImage(bg[bgIndex]);
-    perspectives = loadImage(bg[bgIndex]);
-  }
-}
+//  if (key == 'o') {
+//    if (bgIndex > 0) {
+//      bgIndex-- ;
+//    } else {
+//      bgIndex = bg.length-1;
+//    }
+//    //t1.showImage(bg[bgIndex]);
+//    perspectives = loadImage(bg[bgIndex]);
+//  } else if (key == 'p') {
+//    if (bgIndex < (bg.length-1)) {
+//      bgIndex++ ;
+//    } else {
+//      bgIndex = 0;
+//    }
+//    //t1.showImage(bg[bgIndex]);
+//    perspectives = loadImage(bg[bgIndex]);
+//  }
+//}
 // (historyPersons) boardPersons is the RealTime Arraylist from the PerceptionBoard
 // (currentPersons) screenPersons is the NearRealTime Arraylist for the SecondScreen
 // historyPersons is the OldTime or Backup Arraylist for logbook purpose
@@ -393,31 +392,31 @@ public void secondScreenInteraction() {
     }
   }
 }
-public void sendPointData(GData g, int i) {
-  ArrayList<GData> bGaussBitsList = gsMeta.getBasicGaussBits(thld);//API Demos
-  int polarityInt = g.getPolarity(); //Get the polarity in Int. 0: North, 1:South
-  int intensity = (int) g.getIntensity(); //Get the intensity. Unit: gauss
-  int x = (int) g.getX(); //Get the X coordinate on the display
-  int y = (int) g.getY(); //Get the Y coordinate on the display
-  String polarityString = (polarityInt==0 ? "North" : "South" );
-  for (int j=0; j<bGaussBitsList.size(); j++) {
-    GData bGaussBits = bGaussBitsList.get(j);
-    if (intensity>0) s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + " " + ((int)bGaussBits.x*1.5f) + " " +((int)bGaussBits.y*1.6875f) + "\n" );
-  } // identification - polarity - intensity - x - y - dispX - dispY
-}
+// void sendPointData(GData g, int i) {
+//   ArrayList<GData> bGaussBitsList = gsMeta.getBasicGaussBits(thld);//API Demos
+//   int polarityInt = g.getPolarity(); //Get the polarity in Int. 0: North, 1:South
+//   int intensity = (int) g.getIntensity(); //Get the intensity. Unit: gauss
+//   int x = (int) g.getX(); //Get the X coordinate on the display
+//   int y = (int) g.getY(); //Get the Y coordinate on the display
+//   String polarityString = (polarityInt==0 ? "North" : "South" );
+//   for (int j=0; j<bGaussBitsList.size(); j++) {
+//     GData bGaussBits = bGaussBitsList.get(j);
+//     if (intensity>0) s.write( i + " " + polarityString + " " + (int)intensity + " " + x + " " + y +  " " + " " + ((int)bGaussBits.x*1.5) + " " +((int)bGaussBits.y*1.6875) + "\n" );
+//   } // identification - polarity - intensity - x - y - dispX - dispY
+// }
 
-public void printPointData(GData g, int i) {
-  ArrayList<GData> bGaussBitsList = gsMeta.getBasicGaussBits(thld);//API Demos
-  int polarityInt = g.getPolarity(); //Get the polarity in Int. 0: North, 1:South
-  int intensity = (int) g.getIntensity(); //Get the intensity. Unit: gauss
-  int x = (int) g.getX(); //Get the X coordinate on the display
-  int y = (int) g.getY(); //Get the Y coordinate on the display
-  String polarityString = (polarityInt==0 ? "North" : "South" );
-  for (int j=0; j<bGaussBitsList.size(); j++) {
-    GData bGaussBits = bGaussBitsList.get(j);
-    if (intensity>0) println(i+":"+polarityString +", BasicGaussBits: ~ " + (int)intensity + " gauss, (x,y)= ("+x+","+y+")" + "(x,y) = "+ ((int)bGaussBits.x*1.5f) + "," +((int)bGaussBits.y*1.6875f) );
-  }
-}
+// void printPointData(GData g, int i) {
+//   ArrayList<GData> bGaussBitsList = gsMeta.getBasicGaussBits(thld);//API Demos
+//   int polarityInt = g.getPolarity(); //Get the polarity in Int. 0: North, 1:South
+//   int intensity = (int) g.getIntensity(); //Get the intensity. Unit: gauss
+//   int x = (int) g.getX(); //Get the X coordinate on the display
+//   int y = (int) g.getY(); //Get the Y coordinate on the display
+//   String polarityString = (polarityInt==0 ? "North" : "South" );
+//   for (int j=0; j<bGaussBitsList.size(); j++) {
+//     GData bGaussBits = bGaussBitsList.get(j);
+//     if (intensity>0) println(i+":"+polarityString +", BasicGaussBits: ~ " + (int)intensity + " gauss, (x,y)= ("+x+","+y+")" + "(x,y) = "+ ((int)bGaussBits.x*1.5) + "," +((int)bGaussBits.y*1.6875) );
+//   }
+// }
 
 // void receiveDataServer() { //receive data from client on a server
 //   c = s.available();
@@ -451,6 +450,7 @@ public void receiveDataClient() { //receive data from server on a client
      float x = parseFloat (data[3]);
      float y = parseFloat (data[4]);
      boardPersons.add(new Person(x, y));
+     // println(data);
      // personCounter++;
   // } else if (c.available() <= 0 && boardPersons.size() <= 0) {
     // // println("no pawns on the board");
@@ -461,7 +461,7 @@ public void receiveDataClient() { //receive data from server on a client
     // }
   }
 }
-  public void settings() {  size(1281, 801, P2D); }
+  public void settings() {  size(1280, 800, P2D); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "SatisactionPerceptionSecondScreen" };
     if (passedArgs != null) {

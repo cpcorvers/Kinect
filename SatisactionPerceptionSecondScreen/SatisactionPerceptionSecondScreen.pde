@@ -5,9 +5,9 @@
  *******************/
 
 import processing.serial.*;
-import gausstoys.core.*;
-import tramontana.library.*;
-import websockets.*;
+// import gausstoys.core.*;
+// import tramontana.library.*;
+// import websockets.*;
 import processing.net.*;
 
 /********************
@@ -16,11 +16,11 @@ import processing.net.*;
  *
  *******************/
 
-GaussSense gsMeta;
-GaussSense[] gs = new GaussSense[2];
-boolean showContour = true;
-int thld = 5; //Unit: Gauss
-boolean horizontalGrid = true;
+// GaussSense gsMeta;
+// GaussSense[] gs = new GaussSense[2];
+// boolean showContour = true;
+// int thld = 5; //Unit: Gauss
+// boolean horizontalGrid = true;
 
 // background images
 PImage perspectives;
@@ -31,7 +31,7 @@ int bgIndex = 0;
 PImage bgImage;
 
 // other images
-PImage house;
+// PImage house;
 PImage person_abstract;
 // PImage smile00;
 // PImage smile01;
@@ -55,7 +55,7 @@ PVector person;
 
 //INIT SECOND SCREEN / SERVER CLIENT
 int port = 3030;
-Server s;
+// Server s;
 Client c;
 String input;
 // String input2;
