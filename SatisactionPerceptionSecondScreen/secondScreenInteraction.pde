@@ -50,9 +50,11 @@ void secondScreenInteraction() {
       }
     }
   } else if (screenPersons.size() > boardPersons.size()) {
+
     for (Person p : screenPersons) {
       p.taken = false;
     }
+
     // Match whatever blobs you can match
     for (Person cp : boardPersons) {
       float recordD = 1000;
@@ -78,29 +80,17 @@ void secondScreenInteraction() {
       }
     }
   }
-image(perspectives, 0,0,1280,800);
+
+  // show the person on a location with a background.
+  image(perspectives, 0,0,1280,800);
   for (Person p : screenPersons){
     p.show();
   }
-  // for (Person p : boardPersons){
-  //   p.show();
-  // };
-  // for (Person p : historyPersons){
-  //   p.show();
-  // };
 
-  if (screenPersons.size() > 1000) {
-    for (int i = screenPersons.size() - 1; i >= 0; i--) {
-      Person p = screenPersons.get(i);
-      if (!p.taken) {
-        screenPersons.remove(i);
-      }
-    }
-    for (int i = boardPersons.size() - 1; i >= 0; i--) {
-      Person p = boardPersons.get(i);
-      if (!p.taken) {
-        boardPersons.remove(i);
-      }
-    }
+  // Avoiding full of memory exeption by restricting the size of the boardPersons ArrayList
+  if (boardPersons.size() > 1000) {
+    // println("boardPerson size is above 1000");
+    boardPersons.remove(0);
   }
+
 }

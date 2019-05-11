@@ -1,5 +1,4 @@
 void keyPressed() {
-  // if (key == 'd') t1.takePictureWithUI(0);
   /***********
    *
    * CHANGING BACKGROUND SECOND SCREEN WITH O AND P KEYPRESS
@@ -12,7 +11,6 @@ void keyPressed() {
     } else {
       bgIndex = bg.length-1;
     }
-    //t1.showImage(bg[bgIndex]);
     perspectives = loadImage(bg[bgIndex]);
   } else if (key == 'p') {
     if (bgIndex < (bg.length-1)) {
@@ -20,7 +18,6 @@ void keyPressed() {
     } else {
       bgIndex = 0;
     }
-    //t1.showImage(bg[bgIndex]);
     perspectives = loadImage(bg[bgIndex]);
   }
 }

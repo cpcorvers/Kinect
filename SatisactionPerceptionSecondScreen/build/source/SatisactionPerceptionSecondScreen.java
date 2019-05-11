@@ -45,9 +45,9 @@ public class SatisactionPerceptionSecondScreen extends PApplet {
 PImage perspectives;
 //PImage perspectives2;
 //String[] bg = {"perspective1.png", "perspective2.png", "perspective3.png", "perspective4.png", "perspective5.png", "perspective6.png", "perspective7.png" };
-//String[] bg = {"perspective1.png", "perspective2.png"};
+String[] bg = {"perspective1.png",  "perspective3.png", "perspective4.png", "perspective5.png", "perspective6.png", "perspective7.png" };
 int bgIndex = 0;
-PImage bgImage;
+//PImage bgImage;
 
 // other images
 // PImage house;
@@ -96,8 +96,8 @@ ArrayList<Person> historyPersons;
 public void setup() {
   
   //frameRate(60);
-  bgImage = loadImage("perspective1.png");
-  //perspectives = loadImage(bg[bgIndex]);
+  //bgImage = loadImage("perspective1.png");
+  perspectives = loadImage(bg[bgIndex]);
   person_abstract = loadImage("27.png");
   // smile00 = loadImage("34.png");
   // smile01 = loadImage("29.png");
@@ -124,8 +124,10 @@ public void setup() {
 
 public void draw() {
   //background(perspectives);
-  background(bgImage);
-  fill(0, 0, 250);
+  background(250);
+  //image(perspectives, 0,0,1280,800);
+  //fill(0, 0, 250);
+  
   receiveDataClient(); // get data from server into data[ identification - polarity - intensity - x - y - xx - yy ]
   secondScreenInteraction();
   // for (Person p : screenPersons){
@@ -260,32 +262,32 @@ class Person { // class
    }
    */
 }
-//void keyPressed() {
-//  // if (key == 'd') t1.takePictureWithUI(0);
-//  /***********
-//   *
-//   * CHANGING BACKGROUND SECOND SCREEN WITH O AND P KEYPRESS
-//   *
-//   ***************/
+public void keyPressed() {
+  // if (key == 'd') t1.takePictureWithUI(0);
+  /***********
+   *
+   * CHANGING BACKGROUND SECOND SCREEN WITH O AND P KEYPRESS
+   *
+   ***************/
 
-//  if (key == 'o') {
-//    if (bgIndex > 0) {
-//      bgIndex-- ;
-//    } else {
-//      bgIndex = bg.length-1;
-//    }
-//    //t1.showImage(bg[bgIndex]);
-//    perspectives = loadImage(bg[bgIndex]);
-//  } else if (key == 'p') {
-//    if (bgIndex < (bg.length-1)) {
-//      bgIndex++ ;
-//    } else {
-//      bgIndex = 0;
-//    }
-//    //t1.showImage(bg[bgIndex]);
-//    perspectives = loadImage(bg[bgIndex]);
-//  }
-//}
+  if (key == 'o') {
+    if (bgIndex > 0) {
+      bgIndex-- ;
+    } else {
+      bgIndex = bg.length-1;
+    }
+    //t1.showImage(bg[bgIndex]);
+    perspectives = loadImage(bg[bgIndex]);
+  } else if (key == 'p') {
+    if (bgIndex < (bg.length-1)) {
+      bgIndex++ ;
+    } else {
+      bgIndex = 0;
+    }
+    //t1.showImage(bg[bgIndex]);
+    perspectives = loadImage(bg[bgIndex]);
+  }
+}
 // (historyPersons) boardPersons is the RealTime Arraylist from the PerceptionBoard
 // (currentPersons) screenPersons is the NearRealTime Arraylist for the SecondScreen
 // historyPersons is the OldTime or Backup Arraylist for logbook purpose
@@ -366,30 +368,21 @@ public void secondScreenInteraction() {
       }
     }
   }
-
+image(perspectives, 0,0,1280,800);
   for (Person p : screenPersons){
     p.show();
   }
-  // for (Person p : boardPersons){
-  //   p.show();
-  // };
+  for (Person p : boardPersons){
+    p.show();
+  };
   // for (Person p : historyPersons){
   //   p.show();
   // };
 
-  if (screenPersons.size() > 1000) {
-    for (int i = screenPersons.size() - 1; i >= 0; i--) {
-      Person p = screenPersons.get(i);
-      if (!p.taken) {
-        screenPersons.remove(i);
-      }
-    }
-    for (int i = boardPersons.size() - 1; i >= 0; i--) {
-      Person p = boardPersons.get(i);
-      if (!p.taken) {
-        boardPersons.remove(i);
-      }
-    }
+  // Avoiding full of memory exeption by maximising the size of the boardPersons ArrayList
+  if (boardPersons.size() > 1000) {
+    // println("boardPerson size is above 1000");
+    boardPersons.remove(0);
   }
 }
 // void sendPointData(GData g, int i) {
