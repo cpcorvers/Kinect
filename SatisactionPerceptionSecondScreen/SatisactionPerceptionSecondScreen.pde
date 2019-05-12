@@ -26,7 +26,7 @@ Person p;
 float dispX;
 float dispY;
 
-PVector person;
+//PVector person;
 
 //INIT SECOND SCREEN / SERVER CLIENT
 int port = 3030;
@@ -62,10 +62,6 @@ void setup() {
 void draw() {
   //background(perspectives);
   background(250);
-  //image(perspectives, 0,0,1280,800);
-  //fill(0, 0, 250);
-
   receiveDataClient(); // get data from server into data[ identification - polarity - intensity - x - y - xx - yy ]
   secondScreenInteraction(); // analyse data and show positions on the second screen
-
 }

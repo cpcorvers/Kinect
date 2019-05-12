@@ -19,5 +19,13 @@ void keyPressed() {
       bgIndex = 0;
     }
     perspectives = loadImage(bg[bgIndex]);
+    
+    /*******
+    *
+    *  STOP THE APPLICATION WIHT S KEYPRESS
+    *
+    *************/
+  } else if (key == 's') {
+    exit();
   }
 }

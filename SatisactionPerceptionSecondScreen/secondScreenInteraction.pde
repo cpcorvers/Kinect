@@ -80,17 +80,21 @@ void secondScreenInteraction() {
       }
     }
   }
-
+  // Avoiding full of memory exeption by restricting the size of the boardPersons ArrayList
+  if (boardPersons.size() > 1000) {
+    // println("boardPerson size is above 1000");
+    boardPersons.remove(0);
+  }
+    if (screenPersons.size() > 1000) {
+    // println("boardPerson size is above 1000");
+    screenPersons.remove(0);
+  }
   // show the person on a location with a background.
   image(perspectives, 0,0,1280,800);
   for (Person p : screenPersons){
     p.show();
   }
 
-  // Avoiding full of memory exeption by restricting the size of the boardPersons ArrayList
-  if (boardPersons.size() > 1000) {
-    // println("boardPerson size is above 1000");
-    boardPersons.remove(0);
-  }
+
 
 }
