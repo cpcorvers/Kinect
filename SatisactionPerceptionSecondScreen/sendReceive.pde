@@ -14,6 +14,6 @@ void receiveDataClient() { //receive data from server on a client
      float intensity = parseFloat (data[2]);
      float x = parseFloat (data[3]);
      float y = parseFloat (data[4]);
-     boardPersons.add(new Person(x, y));
+     boardPawns.add(new Person(x, y));
   }
 }

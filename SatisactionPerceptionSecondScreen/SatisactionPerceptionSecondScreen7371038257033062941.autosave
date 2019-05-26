@@ -1,0 +1,204 @@
+// Raspberry Pi Model 3B+
+// OS Raspbian
+// App Processing 3 for Pi
+// 10.1" LCD-TFT Touch screen
+
+import processing.serial.*;
+import processing.net.*;
+
+// Init  images
+PImage perspectives;
+String[] bg = {"perspective1.png",  "perspective3.png", "perspective4.png", "perspective5.png", "perspective6.png", "perspective7.png" };
+int bgIndex = 0;
+PImage person_abstract;
+// PImage smile00;
+// PImage smile01;
+// PImage smile02;
+// PImage smile03;
+// PImage smile04;
+// PImage smile05;
+
+Person p;
+// float pawn_x;
+// float pawn_y;
+// float pawn_ID;
+
+float dispX;
+float dispY;
+
+//PVector person;
+
+//INIT SECOND SCREEN / SERVER CLIENT
+int port = 3030;
+Client c;
+String input;
+String newInput;
+int data[];
+int personCounter = 0;
+
+ArrayList<Person> boardPawns;
+ArrayList<Person> screenPersons;
+ArrayList<Person> historyPersons;
+
+int  x;
+int  y;
+
+JSONArray pawnsOnDigiboard;
+JSONObject pawn;
+
+float time0 = 1000;
+
+void settings() {
+  fullScreen(P2D, 1);
+}
+
+void setup() {
+  // START THE SERVER OR CLIENT
+  // c = new Client(this, "10.0.1.3", port);
+  //c = new Client(this, "10.0.1.4", port);
+
+  // size(1280, 800, P2D);
+  //frameRate(60);
+  perspectives = loadImage(bg[bgIndex]);
+  person_abstract = loadImage("27.png");
+  // smile00 = loadImage("34.png");
+  // smile01 = loadImage("29.png");
+  // smile02 = loadImage("30.png");
+  // smile03 = loadImage("31.png");
+  // smile04 = loadImage("32.png");
+  // smile05 = loadImage("33.png");
+
+
+  // boardPawns = new ArrayList<Person>();
+  screenPersons = new ArrayList<Person>();
+  // historyPersons = new ArrayList<Person>();
+
+  println("Setup complete");
+}
+
+void draw() {
+
+  background(0);
+  // receiveDataClient(); // get data from server into data[ identification - polarity - intensity - x - y - xx - yy ]
+  // secondScreenInteraction(); // analyse data and show positions on the second screen
+  // if (c.available() > 0) {
+    // // for (int i = 0; i < (screenPersons.size()); i++){
+    // //   screenPersons.remove(i);
+    // // }
+    // input = c.readString();
+    // println("input String: " + input);
+    // String input1 = input.substring(0, input.indexOf("\n")); // Only up to the newline
+    // // (input.indexOf("\n")-1)
+    // String input2 = input.substring(input.indexOf("\n"), input.indexOf("\n")); // Only up to the newline
+    //
+    // println("input substring 1: " +input1);
+    // println("input substring 2: " +input2);
+    //
+    // data = int(split(input, ' ')); // Split values into an array
+    //  // Data strutcture from server: s.write( p.pawn_x + " " + p.pawn_y + " " + p.pawn_polarity + " " + p.pawnCenterX + " " + p.pawnCenterY + " " + p.identity + " " + p.direction + "\n" );
+    //  // println(data);
+    //  float pawn_x = parseFloat (data[0]);
+    //  float pawn_y = parseFloat (data[1]);
+    //  float pawn_polarity = parseFloat (data[2]);
+    //  float pawn_intensity = parseFloat (data[3]);
+    //  float pawnCenterX = parseFloat (data[4]);
+    //  float pawnCenterY = parseFloat (data[5]);
+    //  float identity = parseFloat (data[6]);
+    //  float direction = parseFloat (data[7]);
+    //  screenPersons.add(new Person(pawn_x, pawn_y, pawn_polarity, pawn_intensity, pawnCenterX, pawnCenterY, identity, direction));
+    //  // println( pawn_x + " " + pawn_y + " " + pawn_polarity + " " + pawnCenterX + " " + pawnCenterY + " " + identity + " " + direction );
+    //  println(pawn_x);
+
+    // // receive input from server
+    // input = c.readString();
+    // //parse the received data to a JSONobject
+    // JSONObject person = parseJSONObject(input);
+    // if (input == null) {
+    //   println("JSONObject could not be parsed");
+    // } else {
+    //   println(person);
+    //   float pol = person.getFloat("pawn_polarity");
+    //   if (pol == 1)
+    //   {float x1 = person.getFloat("pawn_x");
+    //   float y1 = person.getFloat("pawn_y");
+    //   x = int(x1);
+    //   y = int(y1);}
+    // }
+
+  // }
+
+  pawnsOnDigiboard = loadJSONArray("/Users/PeterMacBookPro/Documents/Coding/Kinect/SatisactionPerceptionBoard/data/data.json");
+  // JSONArray pawns = pawnsOnDigiboard.getJSONArray(0);
+
+
+  for (int i = 0; i < pawnsOnDigiboard.size(); i++) {
+    JSONObject pawn = pawnsOnDigiboard.getJSONObject(i);
+    if (pawn != null) {
+      boolean showed = pawn.getBoolean("showed");
+      if (showed == false){
+        float pawn_x =  pawn.getFloat("pawn_x"); //0
+        float pawn_y =  pawn.getFloat("pawn_y"); //1
+        float pawn_polarity =  pawn.getFloat("pawn_polarity"); //2
+        float pawn_intensity =  pawn.getFloat("pawn_intensity"); //3
+        float pawnCenterX=  pawn.getFloat("pawnCenterX"); //4
+        float pawnCenterY=  pawn.getFloat("pawnCenterY"); //5
+        float identity =  pawn.getFloat("identity"); //6
+        float direction =  0; //6
+        // float direction =  pawn.getFloat("direction"); //7
+        float timestamp  =  pawn.getFloat("timestamp");
+
+        screenPersons.add(new Person(pawn_x, pawn_y, pawn_polarity, pawn_intensity, pawnCenterX, pawnCenterY, identity, direction, timestamp));
+        pawn.setBoolean("showed", true);
+        // p.showPerson(pawn_x, pawn_y, identity, direction);
+
+        // println(pawn_x + " " + pawn_y+ " " + identity + " " + direction);
+      }
+    }  
+  }
+
+
+  image(perspectives, 0, 0, 1280, 800);
+  image(person_abstract, x, y, 50, 100);
+  // image(perspectives, 0, 0, 1280, 800);
+  // if (screenPersons.size() > 0){
+  //   for (Person p : screenPersons){
+  //     p.showPerson(p.pawnCenterX, p.pawnCenterY, p.identity, p.direction);
+  //     // p.showPawn();
+  //     p.remove();
+  //   }
+  // }
+
+  if (screenPersons.size() > 0) {
+    // then move the pawn record to historyPersons
+    for (int i = 0; i < (screenPersons.size()); i++){
+    // for (int i = 0; i < 10; i++){
+      Person p = screenPersons.get(i);
+
+// // dit ertussen
+//
+//       // float time0 = 1000; in INIT
+      // if (p.timestamp >= time0) {
+      //   time0 = p.timestamp;
+      //   // p.showPerson(p.pawnCenterX, p.pawnCenterY, p.identity, p.direction);
+      //   p.showPerson(p.pawn_x, p.pawn_y, p.identity, p.direction);
+      // }
+      // println(time0);
+//
+// // einde dit ertussen
+      p.showPerson(p.pawn_x, p.pawn_y, p.identity, p.direction);
+      p.showed = true;
+      // p.showPerson(p.pawnCenterX, p.pawnCenterY, p.identity, p.direction);
+
+      // // if (screenPersons.size() > 10) {
+      //   for (int j = 0; j < (screenPersons.size() - 10); j++){ screenPersons.remove(j); }
+      // }
+      for (int j = 0; j < (screenPersons.size()); j++){
+        if (p.showed == true) {
+          screenPersons.remove(j);
+        }
+      }
+
+      println(screenPersons.size());
+    }
+  };
+}

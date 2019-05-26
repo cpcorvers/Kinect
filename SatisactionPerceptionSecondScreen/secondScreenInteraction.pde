@@ -1,5 +1,5 @@
-// (historyPersons) boardPersons is the RealTime Arraylist from the PerceptionBoard
-// (currentPersons) screenPersons is the NearRealTime Arraylist for the SecondScreen
+// boardPawns is the RealTime Arraylist from the PerceptionBoard
+// screenPersons is the NearRealTime Arraylist for the SecondScreen
 // historyPersons is the OldTime or Backup Arraylist for logbook purpose
 
 // A pawn on the PerceptionBoard becomes:
@@ -12,20 +12,20 @@
 // There are pawns but no visuals on the screen!
 
 void secondScreenInteraction() {
-  if (screenPersons.isEmpty() && boardPersons.size() > 0) {
+  if (screenPersons.isEmpty() && boardPawns.size() > 0) {
     // println("Adding persons!");
-    for (Person p : boardPersons) {
+    for (Person p : boardPawns) {
       p.pawn_ID = personCounter;
       screenPersons.add(p);
       personCounter++;
     }
   // There are equal or more pawns on the board as screen visuals!
-  } else if (screenPersons.size() <= boardPersons.size()) {
+  } else if (screenPersons.size() <= boardPawns.size()) {
     // Match whatever blobs you can match
     for (Person p : screenPersons) {
       float recordD = 1000;
       Person matched = null;
-      for (Person cp : boardPersons) {
+      for (Person cp : boardPawns) {
         PVector centerP = p.getCenter();
         PVector centerCP = cp.getCenter();
         float d = PVector.dist(centerP, centerCP);
@@ -49,14 +49,14 @@ void secondScreenInteraction() {
         personCounter++;
       }
     }
-  } else if (screenPersons.size() > boardPersons.size()) {
+  } else if (screenPersons.size() > boardPawns.size()) {
 
     for (Person p : screenPersons) {
       p.taken = false;
     }
 
     // Match whatever blobs you can match
-    for (Person cp : boardPersons) {
+    for (Person cp : boardPawns) {
       float recordD = 1000;
       Person matched = null;
       for (Person p : screenPersons) {
@@ -80,21 +80,20 @@ void secondScreenInteraction() {
       }
     }
   }
-  // Avoiding full of memory exeption by restricting the size of the boardPersons ArrayList
-  if (boardPersons.size() > 1000) {
-    // println("boardPerson size is above 1000");
-    boardPersons.remove(0);
+
+  // Avoiding full of memory exeption by restricting the size of the boardPawns ArrayList
+  if (boardPawns.size() > 500) {
+     println("boardPerson size is above 500");
+    boardPawns.remove(0);
   }
-    if (screenPersons.size() > 1000) {
-    // println("boardPerson size is above 1000");
-    screenPersons.remove(0);
-  }
+  //  if (screenPersons.size() > 500) {
+  //   println("boardPerson size is above 1000");
+  //  screenPersons.remove(0);
+  //}
+
   // show the person on a location with a background.
-  image(perspectives, 0,0,1280,800);
-  for (Person p : screenPersons){
-    p.show();
-  }
-
-
-
+  // image(perspectives, 0, 0, 1280, 800);
+  // for (Person p : screenPersons){
+  //   p.showPerson();
+  // }
 }

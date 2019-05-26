@@ -1,0 +1,26 @@
+[{"pawns": [
+  {
+    "pawn_polarity": 0,
+    "pawn_intensity": 36,
+    "identity": 4,
+    "showed": false,
+    "pawnCenterX": 180,
+    "pawn_x": 89,
+    "pawnCenterY": 894.5,
+    "pawn_y": 899,
+    "direction": -0.04941030219197273,
+    "timestamp": 2542
+  },
+  {
+    "pawn_polarity": 0,
+    "pawn_intensity": 15,
+    "identity": 2,
+    "showed": false,
+    "pawnCenterX": 126,
+    "pawn_x": 198,
+    "pawnCenterY": 83,
+    "pawn_y": 82,
+    "direction": 3.127704620361328,
+    "timestamp": 2542
+  }
+]}]
