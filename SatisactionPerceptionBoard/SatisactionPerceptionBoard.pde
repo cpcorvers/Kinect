@@ -48,11 +48,11 @@ float scaleY = 1.550; //1.350 //hight of screen
 float offsetX = 10; // 76;
 float offsetY = 10; // 65;
 
-JSONArray pawnsOnDigiboard;
-JSONObject pawn;
-JSONArray pawns;
+JSONObject json; //the object stored in the data.json file
+JSONArray pawns; //the array inside the jsonObject json
+JSONObject pawnParameters; //the object inside the jsonArray pawns
 int recordArrayPawns = 0;
-int recordArrayPawnsOnDigiboard = 0;
+JSONObject pawn;
 
 //INIT Display variables
 int boardDisplayWidth = 1920;
@@ -90,7 +90,8 @@ void setup() {
   screenPersons = new ArrayList<Person>();
   historyPersons = new ArrayList<Person>();
 
-  pawnsOnDigiboard = new JSONArray();
+  json = new JSONObject();
+  pawns = new JSONArray();
   // pawn = new JSONObject();
 
   perspectives = loadImage(bgScreen[bgScreenIndex]);
@@ -151,37 +152,13 @@ void draw() {
   // Play with JSON instead of Arraylists for interaction with clients.
   //  make a JSON object of all items in boardPawns and add to JSON Array
   createJSONObject();
-  // createJSONArray();
-  // saveJSONObject(pawn, "data/data.json");
-  addJSONArray(pawn);
-  // saveJSONArray(pawnsOnDigiboard, "data/data.json");
-
 
   // only for coding and debugging:
   // println(pawnsOnDigiboard);
-  println(boardPawns.size() + " " + screenPersons.size() + " " + historyPersons.size());
+  // println(boardPawns.size() + " " + screenPersons.size() + " " + historyPersons.size());
+  println(pawns.size());
+  // println(pawn);
 }
-
-// void createJSON() { //Just playing
-//   // show every person which is taken==true
-//   pawn = new JSONObject();
-//   for (int i = 0; i < screenPersons.size(); i ++) {
-//     // pawn = new JSONObject();
-//     Person p = screenPersons.get(i);
-//     if (p.takenJSON == false) {
-//       p.getPawnCenter();
-//       p.becomeJSONObject();
-//       p.takenJSON = true;
-//       };
-//     }
-//   if (pawn != null){
-//     pawnsOnDigiboard.setJSONObject(recordArray, pawn);
-//     recordArray++;
-//     saveJSONArray(pawnsOnDigiboard, "data/data.json");
-//     // pawn = null;
-//     println(pawnsOnDigiboard);
-//   }
-// }
 
 void getGaussData() {
   //Receive data from the GaussSense sensors and store in an Arraylist
@@ -267,20 +244,6 @@ void getPawnCenter(){
           }
         }
       }
-      // println(pawnCentreX + pawnCentreY);
-      // if (matchedCenter != null) {
-      //   matchedCenter.takenCenter = true;
-      //   x1 = cp1.pawn_x;
-      //   y1 = cp1.pawn_y;
-      //   x2 = matchedCenter.pawn_x;
-      //   y2 = matchedCenter.pawn_y;
-      //   matchedCenter.pawnCenterX = (x1 + x2) /2;
-      //   matchedCenter.pawnCenterY = (y1 + y2) /2;
-      //   // calculate the direction of the pawn by the angle between the two magnets of the pawn
-      //   float degree = atan2( (y2 - y1) , (x2 - x1));
-      //   matchedCenter.direction = degree; //radians(degree);
-      //   cp1.becomePawnCenter(matchedCenter);
-      // }
     }
   }
 }
@@ -299,70 +262,17 @@ void dataVisualisation() {
 }
 
 void createJSONObject() {
-  // show every person which is taken==true
+  json = loadJSONObject("data/data.json");
+  pawns = json.getJSONArray("pawns");
+
   for (int i = 0; i < boardPawns.size(); i ++) {
     pawn = new JSONObject();
     Person p = boardPawns.get(i);
-    // if (p.takenJSON == false) {
-      // p.getPawnCenter();
-      p.becomeJSONObject();
-      // p.takenJSON = true;
-      // };
-
-    if (pawn != null){
-      pawnsOnDigiboard.setJSONObject(recordArrayPawnsOnDigiboard, pawn);
-      recordArrayPawnsOnDigiboard++;
-
-      // pawnsOnDigiboard.append(pawn);
-
-      // saveJSONObject(pawn, "data/data.json");
-      // pawn = null;
-    }
+    p.becomeJSONObject();
+    pawns.append(pawn);
   }
+  saveJSONObject(json, "data/data.json");
 }
-
-// void createJSONArray() {
-//   // show every person which is taken==true
-//   for (int i = 0; i < boardPawns.size(); i ++) {
-//     // pawns = new JSONArray();
-//     pawn = new JSONObject();
-//     Person p = boardPawns.get(i);
-//     // if (p.takenJSON == false) {
-//       // p.getPawnCenter();
-//       p.becomeJSONObject();
-//       // p.takenJSON = true;
-//       // };
-//
-//     // if (pawn != null){
-//     //   pawnsOnDigiboard.pawns.setJSONArray(recordArrayPawns, pawn);
-//     //   // pawnsOnDigiboard.setJSONArray(recordArrayPawnsOnDigiboard, pawns);
-//     //   recordArrayPawns++;
-//     //   // saveJSONObject(pawn, "data/data.json");
-//     //   // pawn = null;
-//     // }
-//   }
-// }
-
-
-void addJSONArray(JSONObject pawn) {
-  int i;
-  pawnsOnDigiboard = loadJSONObject("data/data0.json");
-
-  // JSONArray pawns = pawnsOnDigiboard.pawns.getJSONArray();
-
-  if (pawn == null) {
-      println("JSONObject could not be parsed");
-  } else {
-    if (pawnsOnDigiboard.size() == 0) {
-      i = 0;
-    } else { i = (pawnsOnDigiboard.size()+1);};
-    println(pawnsOnDigiboard.size());
-    // pawns.append(pawn);
-    //   println(pawnsOnDigiboard);
-    //   println("size JSON: " + pawnsOnDigiboard.size() + "size pawns: " + pawns.size());
-  }
-  saveJSONArray(pawnsOnDigiboard, "data/data0.json");
-};
 
 void emptyBoardPawns(){
   for (int i = 0; i < boardPawns.size(); i++) {

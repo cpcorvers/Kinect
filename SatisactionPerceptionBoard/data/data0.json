@@ -1,13 +1,13 @@
 {
   "pawns": [{
-    "pawn_polarity": ,
-    "pawn_intensity": ,
-    "identity": ,
-    "pawnCenterX": ,
-    "pawn_x": ,
-    "pawnCenterY": ,
-    "pawn_y": ,
-    "direction": ,
-    "timestamp":
+    "pawn_polarity": 0,
+    "pawn_intensity": 0,
+    "identity": 0,
+    "pawnCenterX": 0,
+    "pawn_x": 0,
+    "pawnCenterY": 0,
+    "pawn_y": 0,
+    "direction": 0,
+    "timestamp": 0
   }]
 }

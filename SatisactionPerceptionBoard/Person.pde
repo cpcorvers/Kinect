@@ -41,7 +41,7 @@ class Person { // class
   float pawnCenterY;
   float identity;
   float direction;
-  float timestamp;
+  String timestamp;
 
   float pawn_ID;
   float recordD = 1000;
@@ -204,7 +204,9 @@ class Person { // class
   }
 
   void becomeJSONObject() {
-    timestamp = new Date().getTime();
+    long time = new Date().getTime();
+    timestamp = (time +"L");
+    // println(timestamp);
     pawn.setFloat("pawn_x", pawn_x); //0
     pawn.setFloat("pawn_y", pawn_y); //1
     pawn.setFloat("pawn_polarity", pawn_polarity); //2
@@ -213,26 +215,8 @@ class Person { // class
     pawn.setFloat("pawnCenterY", pawnCenterY); //5
     pawn.setFloat("identity", identity); //6
     pawn.setFloat("direction", direction); //7
-    pawn.setFloat("timestamp", timestamp);
+    pawn.setString("timestamp", timestamp);
     pawn.setBoolean("showed", false);
   };
-
-  // void addJSONArray(JSONObject pawn) {
-  //   int i;
-  //
-  //   if (pawn == null) {
-  //       println("JSONObject could not be parsed");
-  //   } else {
-  //     if (pawnsOnDigiboard.size() == 0) {
-  //       i = 0;
-  //     } else { i = (pawnsOnDigiboard.size()+1);};
-  //     // println(pawnsOnDigiboard.size());
-  //     pawnsOnDigiboard.setJSONObject(i, pawn);
-  //     pawnsOnDigiboard.setJSONObject(i, pawn);
-  //
-  //       println(pawnsOnDigiboard);
-  //       println("size: " + pawnsOnDigiboard.size());
-  //   }
-  // };
 
 } //class Person
